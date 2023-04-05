@@ -1,18 +1,24 @@
 using InputMaps;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class SelectionManager : MonoBehaviour
 {
     #region Variables
+    [Header("Selection properties")]
     [SerializeField] private RectTransform selectionBox;
+    [SerializeField] private float dragTreshold = 5;
+    [SerializeField] private float rayDistance = 10f;
+    [SerializeField] private LayerMask walkableMask;
+    [SerializeField] private LayerMask unitMask;
+    [SerializeField] private LayerMask enemyMask;
+
+    [Header("Temporary")]
     [SerializeField] private RectTransform p1;
     [SerializeField] private RectTransform p2;
-    [SerializeField] private float dragTreshold = 5;
-    [SerializeField] private LayerMask unitMask;
-
+    //Inputs
     private PlayerActions _inputs;
 
     //Mouse Variables
@@ -22,47 +28,49 @@ public class SelectionManager : MonoBehaviour
     #endregion
 
     #region Properties
-    public HashSet<SelectableUnit> units;
+    public HashSet<SelectableUnit> selectedUnits;
     #endregion
 
     #region Builts_In
     private void Awake()
     {
         _inputs = new PlayerActions();
-        units = new HashSet<SelectableUnit>();
+        selectedUnits = new HashSet<SelectableUnit>();
     }
 
     private void OnEnable()
     {
         _inputs.Enable();
-        _inputs.Selection.Click.canceled += EndClick;
+        _inputs.Selection.LeftClick.canceled += SetSelection;
+        _inputs.Selection.RighClick.started += HandleUnitsAction;
     }
 
     private void OnDisable()
     {
         _inputs.Disable();
-        _inputs.Selection.Click.canceled -= EndClick;
+        _inputs.Selection.LeftClick.canceled -= SetSelection;
+        _inputs.Selection.RighClick.started -= HandleUnitsAction;
     }
 
     private void Update()
     {
-        HandleSelection();
-        DebugMouse();
+        HandleMouseInput();
+        DebugMouseRay();
     }
     #endregion
 
     #region Methods
-    private void DebugMouse()
+    private void DebugMouseRay()
     {
         Ray ray = Camera.main.ScreenPointToRay(_mousePos);
-        Debug.DrawRay(ray.origin, ray.direction * 50f, Color.cyan);
+        Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.cyan);
     }
 
     #region Mouse Selection
     /// <summary>
     /// Handle the selection of units
     /// </summary>
-    private void HandleSelection()
+    private void HandleMouseInput()
     {
         _mouseHeld = Input.GetMouseButton(0);
         _mousePos = Input.mousePosition;
@@ -72,24 +80,39 @@ public class SelectionManager : MonoBehaviour
             _startPos = _mousePos;
 
         //Update the selection box
-        if (IsDragging())
-            UpdateSelectionBox(_mousePos);
+        /*if (IsDragging())
+            UpdateSelectionBox(_mousePos);*/
     }
 
     /// <summary>
     /// End click aciton
     /// </summary>
-    private void EndClick(InputAction.CallbackContext ctx)
+    private void SetSelection(InputAction.CallbackContext ctx)
     {
-        //Rectangle selection
+        /*//Rectangle selection
         if (IsDragging())
         {
             //Looking for all units in the rectangle
+            DragSelect();
             selectionBox.gameObject.SetActive(false);
-        }
+            return;
+        }*/
         //Simple Selection
-        else
-            SelectOnClick();
+        Ray ray = Camera.main.ScreenPointToRay(_mousePos);
+
+        //If unit touched => Add to the selection
+        if (Physics.Raycast(ray, out RaycastHit hit, unitMask) && hit.collider.TryGetComponent(out SelectableUnit unit))
+        {
+            if (ShiftPressed())
+                ShiftSelect(unit);
+            else
+                Select(unit);
+
+            return;
+        }
+
+        //If nothing touched => Deselect All
+        DeselectAll();
     }
 
     /// <summary>
@@ -113,27 +136,130 @@ public class SelectionManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Shoot a raycast and select the unit if possible
-    /// </summary>
-    private void SelectOnClick()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(_mousePos);
-
-        if (!Physics.Raycast(ray, out RaycastHit hit, unitMask))
-            return;
-
-        if (!hit.collider.TryGetComponent(out SelectableUnit unit))
-            return;
-
-        unit.OnSelected();
-    }
-
-    /// <summary>
     /// Detecting iuf the mouse is clicking or dragging
     /// </summary>
     private bool IsDragging()
     {
         return _mouseHeld && Vector2.Distance(_startPos, _mousePos) >= dragTreshold;
+    }
+
+    /// <summary>
+    /// Returns if shift is pressed
+    /// </summary>
+    private bool ShiftPressed()
+    {
+        return _inputs.Selection.Shift.IsPressed();
+    }
+    #endregion
+
+    #region Units Selection
+    /// <summary>
+    /// Remove all the selection and select the last selected unit
+    /// </summary>
+    private void Select(SelectableUnit unit)
+    {
+        DeselectAll();
+
+        unit.Select();
+        selectedUnits.Add(unit);
+    }
+
+    /// <summary>
+    /// Add the unit to the current selection
+    /// </summary>
+    private void ShiftSelect(SelectableUnit unit)
+    {
+        unit.Select();
+        selectedUnits.Add(unit);
+    }
+
+    /// <summary>
+    /// Select all the units inside the selection box
+    /// </summary>
+    private void DragSelect()
+    {
+
+    }
+
+    /// <summary>
+    /// Remove all the units inside the selection box
+    /// </summary>
+    private void DragRemove()
+    {
+
+    }
+
+    /// <summary>
+    /// Deselect all the current selection
+    /// </summary>
+    private void DeselectAll()
+    {
+        foreach (SelectableUnit unit in selectedUnits)
+        {
+            if (!unit)
+                continue;
+
+            unit.Deselect();
+        }
+
+        selectedUnits.Clear();
+    }
+    #endregion
+
+    #region Unit Actions
+    /// <summary>
+    /// Move all the selected units
+    /// </summary>
+    private void HandleUnitsAction(InputAction.CallbackContext ctx)
+    {
+        if (selectedUnits.Count <= 0)
+            return;
+
+        Ray ray = Camera.main.ScreenPointToRay(_mousePos);
+
+        //Enemy
+        if (Physics.Raycast(ray, out RaycastHit enemyHit, rayDistance, enemyMask))
+        {
+            Debug.Log("Enemy attack");
+            UnitsAttack(enemyHit.collider.transform);
+            return;
+        }
+        //Move
+        if (Physics.Raycast(ray, out RaycastHit groundHit, rayDistance, walkableMask))
+        {
+            Debug.Log("Move");
+            MoveUnits(groundHit.point);
+        }
+    }
+
+    /// <summary>
+    /// Move all the selected units to a point
+    /// </summary>
+    /// <param name="point"> Target Position </param>
+    private void MoveUnits(Vector3 point)
+    {
+        foreach (SelectableUnit unit in selectedUnits)
+        {
+            if (!unit)
+                continue;
+
+            unit.EnterMoveState(point);
+        }
+    }
+
+    /// <summary>
+    /// Call the units to start attacking a target
+    /// </summary>
+    /// <param name="target"> Target to attack </param>
+    private void UnitsAttack(Transform target)
+    {
+        foreach (SelectableUnit unit in selectedUnits)
+        {
+            if (!unit)
+                continue;
+
+            unit.EnterCombatState(target);
+        }
     }
     #endregion
 

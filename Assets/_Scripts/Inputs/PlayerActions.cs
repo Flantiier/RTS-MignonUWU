@@ -102,7 +102,7 @@ namespace InputMaps
             ""id"": ""6521bb90-c6d7-4e40-b892-33aa2ceb1e3d"",
             ""actions"": [
                 {
-                    ""name"": ""Click"",
+                    ""name"": ""LeftClick"",
                     ""type"": ""Button"",
                     ""id"": ""6da0cb2f-55d1-4cf1-a76a-4410983d926e"",
                     ""expectedControlType"": ""Button"",
@@ -118,6 +118,24 @@ namespace InputMaps
                     ""processors"": """",
                     ""interactions"": ""Hold(duration=1,pressPoint=1)"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shift"",
+                    ""type"": ""Button"",
+                    ""id"": ""1f76a4f1-ddbe-4537-ab9a-b9ba3bce051d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RighClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""d724d845-9a6d-48e1-b3a0-90fbb03a6b16"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -128,7 +146,7 @@ namespace InputMaps
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Click"",
+                    ""action"": ""LeftClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -142,6 +160,28 @@ namespace InputMaps
                     ""action"": ""Hold"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e4962ca2-b303-4ba9-80b3-e3fcda8e72af"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shift"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e9d3690e-4d7f-4197-8d88-824b8f4e8e02"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RighClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -153,8 +193,10 @@ namespace InputMaps
             m_Camera_Move = m_Camera.FindAction("Move", throwIfNotFound: true);
             // Selection
             m_Selection = asset.FindActionMap("Selection", throwIfNotFound: true);
-            m_Selection_Click = m_Selection.FindAction("Click", throwIfNotFound: true);
+            m_Selection_LeftClick = m_Selection.FindAction("LeftClick", throwIfNotFound: true);
             m_Selection_Hold = m_Selection.FindAction("Hold", throwIfNotFound: true);
+            m_Selection_Shift = m_Selection.FindAction("Shift", throwIfNotFound: true);
+            m_Selection_RighClick = m_Selection.FindAction("RighClick", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -262,14 +304,18 @@ namespace InputMaps
         // Selection
         private readonly InputActionMap m_Selection;
         private List<ISelectionActions> m_SelectionActionsCallbackInterfaces = new List<ISelectionActions>();
-        private readonly InputAction m_Selection_Click;
+        private readonly InputAction m_Selection_LeftClick;
         private readonly InputAction m_Selection_Hold;
+        private readonly InputAction m_Selection_Shift;
+        private readonly InputAction m_Selection_RighClick;
         public struct SelectionActions
         {
             private @PlayerActions m_Wrapper;
             public SelectionActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Click => m_Wrapper.m_Selection_Click;
+            public InputAction @LeftClick => m_Wrapper.m_Selection_LeftClick;
             public InputAction @Hold => m_Wrapper.m_Selection_Hold;
+            public InputAction @Shift => m_Wrapper.m_Selection_Shift;
+            public InputAction @RighClick => m_Wrapper.m_Selection_RighClick;
             public InputActionMap Get() { return m_Wrapper.m_Selection; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -279,22 +325,34 @@ namespace InputMaps
             {
                 if (instance == null || m_Wrapper.m_SelectionActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_SelectionActionsCallbackInterfaces.Add(instance);
-                @Click.started += instance.OnClick;
-                @Click.performed += instance.OnClick;
-                @Click.canceled += instance.OnClick;
+                @LeftClick.started += instance.OnLeftClick;
+                @LeftClick.performed += instance.OnLeftClick;
+                @LeftClick.canceled += instance.OnLeftClick;
                 @Hold.started += instance.OnHold;
                 @Hold.performed += instance.OnHold;
                 @Hold.canceled += instance.OnHold;
+                @Shift.started += instance.OnShift;
+                @Shift.performed += instance.OnShift;
+                @Shift.canceled += instance.OnShift;
+                @RighClick.started += instance.OnRighClick;
+                @RighClick.performed += instance.OnRighClick;
+                @RighClick.canceled += instance.OnRighClick;
             }
 
             private void UnregisterCallbacks(ISelectionActions instance)
             {
-                @Click.started -= instance.OnClick;
-                @Click.performed -= instance.OnClick;
-                @Click.canceled -= instance.OnClick;
+                @LeftClick.started -= instance.OnLeftClick;
+                @LeftClick.performed -= instance.OnLeftClick;
+                @LeftClick.canceled -= instance.OnLeftClick;
                 @Hold.started -= instance.OnHold;
                 @Hold.performed -= instance.OnHold;
                 @Hold.canceled -= instance.OnHold;
+                @Shift.started -= instance.OnShift;
+                @Shift.performed -= instance.OnShift;
+                @Shift.canceled -= instance.OnShift;
+                @RighClick.started -= instance.OnRighClick;
+                @RighClick.performed -= instance.OnRighClick;
+                @RighClick.canceled -= instance.OnRighClick;
             }
 
             public void RemoveCallbacks(ISelectionActions instance)
@@ -318,8 +376,10 @@ namespace InputMaps
         }
         public interface ISelectionActions
         {
-            void OnClick(InputAction.CallbackContext context);
+            void OnLeftClick(InputAction.CallbackContext context);
             void OnHold(InputAction.CallbackContext context);
+            void OnShift(InputAction.CallbackContext context);
+            void OnRighClick(InputAction.CallbackContext context);
         }
     }
 }

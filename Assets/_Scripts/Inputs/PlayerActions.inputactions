@@ -78,7 +78,7 @@
             "id": "6521bb90-c6d7-4e40-b892-33aa2ceb1e3d",
             "actions": [
                 {
-                    "name": "Click",
+                    "name": "LeftClick",
                     "type": "Button",
                     "id": "6da0cb2f-55d1-4cf1-a76a-4410983d926e",
                     "expectedControlType": "Button",
@@ -94,6 +94,24 @@
                     "processors": "",
                     "interactions": "Hold(duration=1,pressPoint=1)",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Shift",
+                    "type": "Button",
+                    "id": "1f76a4f1-ddbe-4537-ab9a-b9ba3bce051d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RighClick",
+                    "type": "Button",
+                    "id": "d724d845-9a6d-48e1-b3a0-90fbb03a6b16",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -104,7 +122,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Click",
+                    "action": "LeftClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -116,6 +134,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Hold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e4962ca2-b303-4ba9-80b3-e3fcda8e72af",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shift",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e9d3690e-4d7f-4197-8d88-824b8f4e8e02",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RighClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
