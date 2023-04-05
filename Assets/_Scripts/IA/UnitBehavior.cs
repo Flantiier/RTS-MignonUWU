@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class UnitBehavior : MonoBehaviour
+public class UnitBehavior : Entity
 {
     #region Variables
     [Header("Unit properties")]

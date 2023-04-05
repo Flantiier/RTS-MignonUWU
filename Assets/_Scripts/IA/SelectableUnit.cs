@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class SelectableUnit : UnitBehavior
 {
     #region Variables
-    public enum UnitStateMachine { Waiting, MoveToPoint, Combat }
+    public enum UnitStateMachine { Waiting, GoToPoint, Combat }
 
     [Header("References")]
     [SerializeField] private GameObject selector;
@@ -20,8 +20,11 @@ public class SelectableUnit : UnitBehavior
     #endregion
 
     #region Builts_In
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        //Health
+        base.OnEnable();
+
         CurrentState = UnitStateMachine.Waiting;
         SetSelector(false);
     }
@@ -40,27 +43,26 @@ public class SelectableUnit : UnitBehavior
     {
         switch (CurrentState)
         {
-            case UnitStateMachine.MoveToPoint:
+            case UnitStateMachine.GoToPoint:
                 GoToPointState();
                 break;
             case UnitStateMachine.Combat:
                 CombatState();
                 break;
-            case UnitStateMachine.Waiting:
-                Stop();
+            default:
                 break;
         }
     }
 
-    #region MoveState Methods
+    #region PointState Methods
     /// <summary>
     /// Set the destination of the navMesh agent
     /// </summary>
     /// <param name="destination"> Target position <param>
     public void EnterMoveState(Vector3 destination)
     {
-        CurrentState = UnitStateMachine.MoveToPoint;
         Destination = destination;
+        CurrentState = UnitStateMachine.GoToPoint;
     }
 
     /// <summary>
@@ -74,7 +76,8 @@ public class SelectableUnit : UnitBehavior
 
         //Destination not reached yet
         if (_navMesh.remainingDistance > 0.5f)
-            return;
+            CurrentState = UnitStateMachine.GoToPoint;
+
         //Reached destination
         CurrentState = UnitStateMachine.Waiting;
     }
@@ -87,26 +90,25 @@ public class SelectableUnit : UnitBehavior
     /// <param name="target"> Target to fight </param>
     public void EnterCombatState(Transform target)
     {
-        CurrentState = UnitStateMachine.Combat;
         Target = target;
+        CurrentState = UnitStateMachine.Combat;
     }
 
     private void CombatState()
     {
         //Too Far to attack
-        if (_navMesh.remainingDistance > attackDistance)
+        if ((Target.position - transform.position).magnitude > attackDistance)
         {
-            _navMesh.SetDestination(Destination);
+            _navMesh.SetDestination(Target.position);
             return;
         }
         //Can attack
-        Debug.Log("Can Attack");
         FaceTarget();
         Stop();
     }
     #endregion
 
-    #region Select Unit Methods
+    #region Select Methods
     public virtual void Select()
     {
         SetSelector(true);

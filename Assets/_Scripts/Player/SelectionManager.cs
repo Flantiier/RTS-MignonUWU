@@ -80,8 +80,8 @@ public class SelectionManager : MonoBehaviour
             _startPos = _mousePos;
 
         //Update the selection box
-        /*if (IsDragging())
-            UpdateSelectionBox(_mousePos);*/
+        if (IsDragging())
+            UpdateSelectionBox(_mousePos);
     }
 
     /// <summary>
@@ -89,14 +89,14 @@ public class SelectionManager : MonoBehaviour
     /// </summary>
     private void SetSelection(InputAction.CallbackContext ctx)
     {
-        /*//Rectangle selection
+        //Rectangle selection
         if (IsDragging())
         {
             //Looking for all units in the rectangle
             DragSelect();
             selectionBox.gameObject.SetActive(false);
             return;
-        }*/
+        }
         //Simple Selection
         Ray ray = Camera.main.ScreenPointToRay(_mousePos);
 
