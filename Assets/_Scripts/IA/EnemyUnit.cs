@@ -1,15 +1,10 @@
 using UnityEngine;
-using System.Collections;
 
 public class EnemyUnit : UnitBehavior
 {
     #region Variables
-    [SerializeField] private float detectRadius = 3f;
+    [Header("Detection")]
     [SerializeField] private LayerMask detectMask;
-
-    [Header("Combat")]
-    [SerializeField] private float attackRate = 3f;
-    private Coroutine _attackRoutine;
     #endregion
 
     #region Properties
@@ -19,8 +14,8 @@ public class EnemyUnit : UnitBehavior
     #region Builts_In
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(0f, 1f, 0f, 0.25f);
-        Gizmos.DrawSphere(transform.position, detectRadius);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, attackDistance);
     }
     #endregion
 
@@ -43,39 +38,40 @@ public class EnemyUnit : UnitBehavior
 
     private void CombatState()
     {
-        if (Attacking || _attackRoutine != null)
-            return;
-
         //Look at target
         if (!Target)
-            Target = GetTarget();
+            Target = GetCloseTarget();
 
-        _attackRoutine = StartCoroutine("AttackRoutine");
+        //Already attacking
+        if (Attacking)
+            return;
+
+        //Start Attack routine
+        StartCoroutine(AttackRoutine(attackRate));
     }
 
-    /// <summary>
-    /// Basic attack pattern
-    /// </summary>
-    private IEnumerator AttackRoutine()
+    public override void Attack()
     {
-        Debug.Log("Attack");
+        Collider[] colliders = Physics.OverlapSphere(transform.position, attackDistance, detectMask);
 
-        Attacking = true;
-        //Set animation
+        if (colliders.Length <= 0)
+            return;
 
-        //Wait
-        yield return new WaitForSecondsRealtime(attackRate);
-        //Reset
-        Attacking = false;
-        _attackRoutine = null;
+        foreach (Collider col in colliders)
+        {
+            if (!col || !col.TryGetComponent(out SelectableUnit unit))
+                continue;
+
+            unit.DealDamages(damages);
+        }
     }
 
     /// <summary>
     /// Get a target to look at 
     /// </summary>
-    protected Transform GetTarget()
+    protected Transform GetCloseTarget()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, detectRadius, detectMask);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, attackDistance, detectMask);
 
         if (colliders.Length <= 0)
             return null;
@@ -89,7 +85,7 @@ public class EnemyUnit : UnitBehavior
     /// <returns></returns>
     protected bool DetectUnits()
     {
-        return Physics.CheckSphere(transform.position, detectRadius, detectMask);
+        return Physics.CheckSphere(transform.position, attackDistance, detectMask);
     }
     #endregion
 }

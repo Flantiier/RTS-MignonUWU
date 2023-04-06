@@ -7,12 +7,9 @@ public class SelectableUnit : UnitBehavior
     #region Variables
     public enum UnitStateMachine { Waiting, GoToPoint, Combat }
 
+    //References
     [Header("References")]
     [SerializeField] private GameObject selector;
-
-    [Header("Unit properties")]
-    [SerializeField] private float moveSpeed = 3f;
-    [SerializeField] private float attackDistance = 1;
     #endregion
 
     #region Properties
@@ -27,11 +24,6 @@ public class SelectableUnit : UnitBehavior
 
         CurrentState = UnitStateMachine.Waiting;
         SetSelector(false);
-    }
-
-    protected override void Update()
-    {
-        HandleUnitBehavior();
     }
     #endregion
 
@@ -52,6 +44,14 @@ public class SelectableUnit : UnitBehavior
             default:
                 break;
         }
+    }
+
+    protected override void UpdateAnimations()
+    {
+        if (!Animator)
+            return;
+
+        Animator.SetBool("Walk", _navMesh.velocity.magnitude >= 1);
     }
 
     #region PointState Methods
@@ -91,20 +91,43 @@ public class SelectableUnit : UnitBehavior
     public void EnterCombatState(Transform target)
     {
         Target = target;
+        Destination = target.position;
         CurrentState = UnitStateMachine.Combat;
     }
 
     private void CombatState()
     {
-        //Too Far to attack
-        if ((Target.position - transform.position).magnitude > attackDistance)
+        float distance = GetDistanceFromDestination();
+
+        if (!Target)
         {
-            _navMesh.SetDestination(Target.position);
+            CurrentState = distance >= 5f ? UnitStateMachine.GoToPoint : UnitStateMachine.Waiting;
             return;
         }
-        //Can attack
-        FaceTarget();
-        Stop();
+
+        //Too Far to attack
+        if (distance > attackDistance)
+        {
+            _navMesh.isStopped = false;
+            _navMesh.SetDestination(Target.position);
+        }
+        //Close target => Attack
+        else
+        {
+            if (!Attacking)
+                StartCoroutine(AttackRoutine(attackRate));
+
+            FaceTarget();
+            Stop();
+        }
+    }
+
+    public override void Attack()
+    {
+        if (!Target || !Target.TryGetComponent(out Entity enemy))
+            return;
+
+        enemy.DealDamages(damages);
     }
     #endregion
 

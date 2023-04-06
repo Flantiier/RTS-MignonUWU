@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,7 +7,14 @@ public class UnitBehavior : Entity
 {
     #region Variables
     [Header("Unit properties")]
+    [SerializeField] private Animator animator;
     [SerializeField, Range(0, 0.1f)] private float smoothRotation = 0.05f;
+    [SerializeField] protected float moveSpeed = 3f;
+
+    [Header("Combat")]
+    [SerializeField] protected float damages = 25f;
+    [SerializeField] protected float attackDistance = 1f;
+    [SerializeField] protected  float attackRate = 3f;
 
     protected NavMeshAgent _navMesh;
     #endregion
@@ -15,6 +23,7 @@ public class UnitBehavior : Entity
     public Transform Target { get; protected set; }
     public Vector3 Destination { get; protected set; }
     public bool Attacking { get; set; }
+    public Animator Animator => animator;
     #endregion
 
     #region Builts_In
@@ -41,7 +50,7 @@ public class UnitBehavior : Entity
     /// </summary>
     protected virtual void UpdateAnimations() { }
 
-    #region AI methods
+    #region AI Methods
     /// <summary>
     /// Face the current target
     /// </summary>
@@ -73,6 +82,32 @@ public class UnitBehavior : Entity
             return;
 
         _navMesh.isStopped = true;
+    }
+
+    protected float GetDistanceFromDestination()
+    {
+        return Vector3.Distance(Destination, transform.position);
+    }
+    #endregion
+
+    #region Combat Methods
+    /// <summary>
+    /// Attack method => Used by animation event
+    /// </summary>
+    public virtual void Attack() { }
+
+    /// <summary>
+    /// Basic attack pattern
+    /// </summary>
+    protected virtual IEnumerator AttackRoutine(float attackRate)
+    {
+        Attacking = true;
+        //Set animation
+        Animator.SetTrigger("Attack");
+
+        //Wait
+        yield return new WaitForSecondsRealtime(attackRate);
+        Attacking = false;
     }
     #endregion
 
