@@ -4,11 +4,6 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     #region Variables
-    [Header("Cam Properties")]
-    [SerializeField, Range(1f, 25f)] private float viewHeight = 10;
-    [SerializeField, Range(0f, 180f)] private float viewAngle = 45;
-    [SerializeField, Range(1, 20)] private int orthographicSize = 10;
-
     [Header("Movement")]
     [SerializeField] private float speed = 3f;
     [SerializeField, Range(0, 0.1f)] private float lerp = 0.05f;
@@ -43,7 +38,6 @@ public class PlayerCamera : MonoBehaviour
 
     private void Update()
     {
-        SetView();
         HandleCameraMovement();
     }
     #endregion
@@ -58,19 +52,6 @@ public class PlayerCamera : MonoBehaviour
         Vector3 movement = Vector3.forward * _currentInputs.y + Vector3.right * _currentInputs.x;
 
         transform.position += speed * Time.deltaTime * movement;
-    }
-
-    /// <summary>
-    /// Set camera heigth and view angle
-    /// </summary>
-    private void SetView()
-    {
-        //Set camera height
-        transform.position = new Vector3(transform.position.x, viewHeight, transform.position.z);
-        //Set vierw angle
-        transform.rotation = Quaternion.Euler(viewAngle, transform.rotation.y, transform.rotation.z);
-        //Set camera size
-        _cam.orthographicSize = orthographicSize;
     }
     #endregion
 }
