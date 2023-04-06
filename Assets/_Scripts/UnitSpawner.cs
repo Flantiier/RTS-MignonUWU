@@ -34,10 +34,10 @@ public class UnitSpawner : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!spawnerUI)
+        if (!spawnerUI || spawnerUI.activeSelf)
             return;
 
-        spawnerUI.gameObject.SetActive(!spawnerUI.activeSelf);
+        spawnerUI.gameObject.SetActive(true);
     }
 
     public void SetCollider(bool state)

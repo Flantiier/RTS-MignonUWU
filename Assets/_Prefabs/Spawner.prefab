@@ -385,6 +385,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WSC_Units
       objectReference: {fileID: 0}
+    - target: {fileID: 8661937811820844656, guid: d5876d5dadb5b234a98989fda84a9fbe,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
     - target: {fileID: 8844760021573878083, guid: d5876d5dadb5b234a98989fda84a9fbe,
         type: 3}
       propertyPath: m_PresetInfoIsWorld
