@@ -46,7 +46,7 @@ public class Entity : MonoBehaviour
     /// Decrease the current health value
     /// </summary>
     /// <param name="damages"> Damages taken </param>
-    protected virtual void TakeDamages(float damages)
+    public virtual void DealDamages(float damages)
     {
         //Decrease health
         CurrentHealth -= damages;
