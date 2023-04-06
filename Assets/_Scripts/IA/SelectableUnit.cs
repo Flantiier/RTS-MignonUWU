@@ -124,7 +124,7 @@ public class SelectableUnit : UnitBehavior
 
     public override void Attack()
     {
-        if (!Target.TryGetComponent(out Entity enemy))
+        if (!Target || !Target.TryGetComponent(out Entity enemy))
             return;
 
         enemy.DealDamages(damages);

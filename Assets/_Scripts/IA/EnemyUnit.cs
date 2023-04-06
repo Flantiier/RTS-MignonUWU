@@ -38,12 +38,13 @@ public class EnemyUnit : UnitBehavior
 
     private void CombatState()
     {
-        if (Attacking)
-            return;
-
         //Look at target
         if (!Target)
             Target = GetCloseTarget();
+
+        //Already attacking
+        if (Attacking)
+            return;
 
         //Start Attack routine
         StartCoroutine(AttackRoutine(attackRate));
