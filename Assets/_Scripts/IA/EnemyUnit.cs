@@ -14,7 +14,7 @@ public class EnemyUnit : UnitBehavior
     #region Builts_In
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, attackDistance);
     }
     #endregion
