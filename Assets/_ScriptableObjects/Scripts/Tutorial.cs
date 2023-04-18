@@ -1,11 +1,19 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu]
 public class Tutorial: ScriptableObject
 {
     public string tutorialName = "New tutorial";
+    public GameEvent gameEvent;
     public TutorialInfos[] infos;
+
+    public void RaiseEndEvent()
+    {
+        if (!gameEvent)
+            return;
+
+        gameEvent.Raise();
+    }
 }
 
 [System.Serializable]

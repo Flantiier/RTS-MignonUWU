@@ -13,28 +13,31 @@ MonoBehaviour:
   m_Name: Tuto_Introduction
   m_EditorClassIdentifier: 
   tutorialName: Introduction
+  gameEvent: {fileID: 0}
   infos:
   - image: {fileID: 0}
-    sentence: "Bienvenu(e) ! \nLes Vampirovaches nous ont envahies et attaques nos
+    sentence: "Bienvenu(e) ! \nLes Vampirovaches nous ont envahies et attaquent nos
       villages. Il nous faut reprendre nos territoires !"
-  - image: {fileID: 0}
-    sentence: Deplaces toi avec ZQSD et selectionne des unites en cliquant dessus.
+  - image: {fileID: 21300000, guid: 995b905f938830345a32ec0d0bd135e9, type: 3}
+    sentence: Deplaces toi avec ZQSD et selectionnes des unites en cliquant dessus.
       Tu peux en selectionner plusieurs en appuyant sur LeftShift.
-  - image: {fileID: 0}
+  - image: {fileID: 21300000, guid: 905dd8b2094e56d46a2ab530dc65efad, type: 3}
     sentence: "Place au combat maintenant ! Envois tes unites attaquer les Vampirovaches
       ! \nAttention, elles sont sans pitie !"
-  - image: {fileID: 0}
+  - image: {fileID: 21300000, guid: 5d7a970fb7941844b99033510a9c839b, type: 3}
     sentence: 'Vu la force des vaches, bon nombre de soldats vont tomber...
 
       Il
       te suffit d''appuyer sur un avant-poste et de faire apparaitre de nouveaux
       soldats !'
-  - image: {fileID: 0}
-    sentence: "Certains avant-postes ont ete capturer par ces m\xE9chantes vaches...
-      Elimines celles aux alentours afin de recuperer ces avant-postes !"
-  - image: {fileID: 0}
+  - image: {fileID: 21300000, guid: 65849294f7bfba248a8c13523f231f12, type: 3}
+    sentence: Certains avant-postes ont ete capturer par ces mechantes vaches...
+      Elimines celles aux alentours afin de les recuperer !
+  - image: {fileID: 21300000, guid: b79d01ef094b6ba478da504a218496cc, type: 3}
     sentence: 'L''ennemi principal se trouve au bout de nos terres, il s''agit de
       la Vampirovache originelle !
 
       Debarasse nous-en et nos villages retrouveront
-      leurs tranquilite.'
+      leurs tranquilite.
+
+      Bon courage !'

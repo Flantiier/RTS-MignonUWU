@@ -54,7 +54,15 @@ public class Entity : MonoBehaviour
 
         //Health lower than 0
         if (CurrentHealth <= 0)
-            Destroy(gameObject);
+            HandleDeath();
+    }
+
+    /// <summary>
+    /// Handle the destroy method for the unit
+    /// </summary>
+    protected virtual void HandleDeath()
+    {
+        Destroy(gameObject);
     }
 
     /// <summary>
