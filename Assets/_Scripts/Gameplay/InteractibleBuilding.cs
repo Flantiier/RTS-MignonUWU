@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Scripts.Gameplay
 {
@@ -16,11 +15,12 @@ namespace Scripts.Gameplay
             if (!buildingCanvas || buildingCanvas.activeInHierarchy)
                 return;
 
-            buildingCanvas.SetActive(enabled);
+            buildingCanvas.SetActive(true);
         }
 
         public void OnMouseDown()
         {
+            Debug.Log("On clicked");
             EnableCanvas();
         }
     }

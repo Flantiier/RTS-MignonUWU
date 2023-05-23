@@ -9,6 +9,7 @@ namespace Scripts.Gameplay
         #region Variables
         [Header("Spawner properties")]
         [SerializeField] private SelectableUnit[] units;
+        [SerializeField] private Transform spawnPos;
         [SerializeField] private float innerRadius = 3f;
         [SerializeField] private float outerRadius = 5f;
         [SerializeField] private float spawnCooldown = 2f;
@@ -22,19 +23,11 @@ namespace Scripts.Gameplay
             if (_spawnWait)
                 return;
 
-            /*SelectableUnit unit = Instantiate(units[index], spawnPos.position, Quaternion.LookRotation(spawnPos.position));
-            Vector3 direction = transform.forward * 1.5f;
-            unit.EnterMoveState(direction);*/
-        }
+            SelectableUnit unit = Instantiate(units[index], spawnPos.position, Quaternion.LookRotation(spawnPos.position));
+            Vector3 direction = (transform.position - spawnPos.position).normalized * 1.5f;
+            unit.EnterMoveState(direction);
 
-        private Vector3 GetSpawnPosition()
-        {
-            Vector3 spawnPos = new Vector3();
-            spawnPos.x = Random.Range(Random.Range(-outerRadius, -innerRadius), Random.Range(innerRadius, outerRadius));
-            spawnPos.z = Random.Range(Random.Range(-outerRadius, -innerRadius), Random.Range(innerRadius, outerRadius));
-            Vector3 direction = (spawnPos - transform.position).normalized;
-
-            return spawnPos;
+            StartCoroutine(SpawnRoutine());
         }
 
         private IEnumerator SpawnRoutine()
