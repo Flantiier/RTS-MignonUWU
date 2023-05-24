@@ -13,7 +13,7 @@ public class ResourceDisplay : MonoBehaviour
         _image = GetComponent<Image>();
         _textMesh = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
-        SetIcon();
+        InitializeSlot();
     }
 
     private void Update()
@@ -24,7 +24,7 @@ public class ResourceDisplay : MonoBehaviour
         _textMesh.text = resource.amount.ToString();
     }
 
-    public void SetIcon()
+    public void InitializeSlot()
     {
         if (!resource || !resource.icon)
             return;

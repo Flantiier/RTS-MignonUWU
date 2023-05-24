@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
             item.amount = item.baseAmount;
             ResourceDisplay slot = Instantiate(slotPrefab, inventoryPanel);
             slot.resource = item;
-            slot.SetIcon();
+            slot.InitializeSlot();
         }
     }
     #endregion

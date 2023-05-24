@@ -10,8 +10,6 @@ namespace Scripts.Gameplay
         [Header("Spawner properties")]
         [SerializeField] private SelectableUnit[] units;
         [SerializeField] private Transform spawnPos;
-        [SerializeField] private float innerRadius = 3f;
-        [SerializeField] private float outerRadius = 5f;
         [SerializeField] private float spawnCooldown = 2f;
 
         private bool _spawnWait = false;

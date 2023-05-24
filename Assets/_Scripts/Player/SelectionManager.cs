@@ -86,17 +86,6 @@ public class SelectionManager : MonoBehaviour
     /// </summary>
     private void SetSelection(InputAction.CallbackContext ctx)
     {
-        ///////////A FINIR////////////////
-
-        //Rectangle selection
-        /*if (IsDragging())
-        {
-            //Looking for all units in the rectangle
-            DragSelect();
-            selectionBox.gameObject.SetActive(false);
-            return;
-        }*/
-
         //Simple Selection
         Ray ray = Camera.main.ScreenPointToRay(_mousePos);
 

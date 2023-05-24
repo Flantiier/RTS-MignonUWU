@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8936825a11ea05e4eac206456b8dbe65, type: 3}
+  m_Name: Tuto_TutorielFini
+  m_EditorClassIdentifier: 
+  tutorialName: Felicitations !
+  gameEvent: {fileID: 11400000, guid: 546b1c7faccc8704b935f1afce3a14cb, type: 2}
+  infos:
+  - image: {fileID: 0}
+    sentence: 'Bravo tu as vaincu laVampirovache originelle !
+
+      Les villages
+      vont enfin pouvoir revivre comme avant !'
