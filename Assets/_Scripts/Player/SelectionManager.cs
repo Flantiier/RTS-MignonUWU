@@ -8,16 +8,12 @@ public class SelectionManager : MonoBehaviour
 {
     #region Variables
     [Header("Selection properties")]
-    [SerializeField] private RectTransform selectionBox;
     [SerializeField] private float dragTreshold = 5;
     [SerializeField] private float rayDistance = 10f;
     [SerializeField] private LayerMask walkableMask;
     [SerializeField] private LayerMask unitMask;
     [SerializeField] private LayerMask enemyMask;
 
-    [Header("Temporary")]
-    [SerializeField] private RectTransform p1;
-    [SerializeField] private RectTransform p2;
     //Inputs
     private PlayerActions _inputs;
 
@@ -125,7 +121,7 @@ public class SelectionManager : MonoBehaviour
     /// <param name="curMousePos">Current mouse position </param>
     void UpdateSelectionBox(Vector2 curMousePos)
     {
-        if (!selectionBox.gameObject.activeInHierarchy)
+        /*if (!selectionBox.gameObject.activeInHierarchy)
             selectionBox.gameObject.SetActive(true);
 
         float width = curMousePos.x - _startPos.x;
@@ -136,7 +132,7 @@ public class SelectionManager : MonoBehaviour
         p2.anchoredPosition = curMousePos;
 
         selectionBox.sizeDelta = new Vector2(Mathf.Abs(width), Mathf.Abs(height));
-        selectionBox.anchoredPosition = _startPos + new Vector2(width / 2, height / 2);
+        selectionBox.anchoredPosition = _startPos + new Vector2(width / 2, height / 2);*/
     }
 
     /// <summary>

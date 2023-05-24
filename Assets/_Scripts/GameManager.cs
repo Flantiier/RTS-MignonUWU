@@ -4,7 +4,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     #region Variables
+    [Header("Inventory")]
     [SerializeField] private Inventory inventory;
+    [SerializeField] private Transform inventoryPanel;
+    [SerializeField] private ResourceDisplay slotPrefab;
     #endregion
 
     #region Properties
@@ -16,6 +19,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         SingletonPattern();
+        InitializeInventory();
     }
     #endregion
 
@@ -33,7 +37,19 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region Methods
-
+    #region Inventory Methods
+    /// <summary>
+    /// Initialize inventory GUI
+    /// </summary>
+    private void InitializeInventory()
+    {
+        foreach (Resource item in inventory.ressources)
+        {
+            item.amount = item.baseAmount;
+            ResourceDisplay slot = Instantiate(slotPrefab, inventoryPanel);
+            slot.resource = item;
+            slot.SetIcon();
+        }
+    }
     #endregion
 }
