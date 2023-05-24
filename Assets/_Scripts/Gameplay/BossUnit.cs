@@ -1,15 +1,18 @@
 using UnityEngine;
 
-public class BossUnit : EnemyUnit
+namespace Scripts.Gameplay.Units
 {
-    [Header("Events")]
-    [SerializeField] private GameEvent defeatedEvent;
-
-    protected override void HandleDeath()
+    public class BossUnit : EnemyUnit
     {
-        if (defeatedEvent)
-            defeatedEvent.Raise();
+        [Header("Events")]
+        [SerializeField] private GameEvent defeatedEvent;
 
-        base.HandleDeath();
+        protected override void HandleDeath()
+        {
+            if (defeatedEvent)
+                defeatedEvent.Raise();
+
+            base.HandleDeath();
+        }
     }
 }

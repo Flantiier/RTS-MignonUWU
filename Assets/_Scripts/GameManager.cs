@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void InitializeInventory()
     {
-        foreach (Resource item in inventory.ressources)
+        foreach (Resource item in inventory.resources)
         {
             item.amount = item.baseAmount;
             ResourceDisplay slot = Instantiate(slotPrefab, inventoryPanel);

@@ -1,155 +1,158 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
-public class SelectableUnit : UnitBehavior
+namespace Scripts.Gameplay.Units
 {
-    #region Variables
-    public enum UnitStateMachine { Waiting, GoToPoint, Combat }
-
-    //References
-    [Header("References")]
-    [SerializeField] private GameObject selector;
-    #endregion
-
-    #region Properties
-    public UnitStateMachine CurrentState { get; protected set; }
-    #endregion
-
-    #region Builts_In
-    protected override void OnEnable()
+    [RequireComponent(typeof(NavMeshAgent))]
+    public class SelectableUnit : UnitBehavior
     {
-        //Health
-        base.OnEnable();
+        #region Variables
+        public enum UnitStateMachine { Waiting, GoToPoint, Combat }
 
-        CurrentState = UnitStateMachine.Waiting;
-        SetSelector(false);
-    }
-    #endregion
+        //References
+        [Header("References")]
+        [SerializeField] private GameObject selector;
+        #endregion
 
-    #region Methods
-    /// <summary>
-    /// Handle the behaviour of this unit
-    /// </summary>
-    protected override void HandleUnitBehavior()
-    {
-        switch (CurrentState)
+        #region Properties
+        public UnitStateMachine CurrentState { get; protected set; }
+        #endregion
+
+        #region Builts_In
+        protected override void OnEnable()
         {
-            case UnitStateMachine.GoToPoint:
-                GoToPointState();
-                break;
-            case UnitStateMachine.Combat:
-                CombatState();
-                break;
-            default:
-                break;
+            //Health
+            base.OnEnable();
+
+            CurrentState = UnitStateMachine.Waiting;
+            SetSelector(false);
         }
-    }
+        #endregion
 
-    protected override void UpdateAnimations()
-    {
-        if (!Animator)
-            return;
+        #region Methods
+        /// <summary>
+        /// Handle the behaviour of this unit
+        /// </summary>
+        protected override void HandleUnitBehavior()
+        {
+            switch (CurrentState)
+            {
+                case UnitStateMachine.GoToPoint:
+                    GoToPointState();
+                    break;
+                case UnitStateMachine.Combat:
+                    CombatState();
+                    break;
+                default:
+                    break;
+            }
+        }
 
-        Animator.SetBool("Walk", _navMesh.velocity.magnitude >= 1);
-    }
+        protected override void UpdateAnimations()
+        {
+            if (!Animator)
+                return;
 
-    #region PointState Methods
-    /// <summary>
-    /// Set the destination of the navMesh agent
-    /// </summary>
-    /// <param name="destination"> Target position <param>
-    public void EnterMoveState(Vector3 destination)
-    {
-        Destination = destination;
-        CurrentState = UnitStateMachine.GoToPoint;
-    }
+            Animator.SetBool("Walk", _navMesh.velocity.magnitude >= 1);
+        }
 
-    /// <summary>
-    /// Move until reaching the current destintation
-    /// </summary>
-    private void GoToPointState()
-    {
-        //Set move speed
-        Move(moveSpeed);
-        _navMesh.SetDestination(Destination);
-
-        //Destination not reached yet
-        if (_navMesh.remainingDistance > 0.5f)
+        #region PointState Methods
+        /// <summary>
+        /// Set the destination of the navMesh agent
+        /// </summary>
+        /// <param name="destination"> Target position <param>
+        public void EnterMoveState(Vector3 destination)
+        {
+            Destination = destination;
             CurrentState = UnitStateMachine.GoToPoint;
-
-        //Reached destination
-        CurrentState = UnitStateMachine.Waiting;
-    }
-    #endregion
-
-    #region Combat Methods
-    /// <summary>
-    /// Set the current state on Combat
-    /// </summary>
-    /// <param name="target"> Target to fight </param>
-    public void EnterCombatState(Transform target)
-    {
-        Target = target;
-        Destination = target.position;
-        CurrentState = UnitStateMachine.Combat;
-    }
-
-    private void CombatState()
-    {
-        float distance = GetDistanceFromDestination();
-
-        if (!Target)
-        {
-            CurrentState = distance >= 5f ? UnitStateMachine.GoToPoint : UnitStateMachine.Waiting;
-            return;
         }
 
-        //Too Far to attack
-        if (distance > attackDistance)
+        /// <summary>
+        /// Move until reaching the current destintation
+        /// </summary>
+        private void GoToPointState()
         {
-            _navMesh.isStopped = false;
-            _navMesh.SetDestination(Target.position);
+            //Set move speed
+            Move(moveSpeed);
+            _navMesh.SetDestination(Destination);
+
+            //Destination not reached yet
+            if (_navMesh.remainingDistance > 0.5f)
+                CurrentState = UnitStateMachine.GoToPoint;
+
+            //Reached destination
+            CurrentState = UnitStateMachine.Waiting;
         }
-        //Close target => Attack
-        else
+        #endregion
+
+        #region Combat Methods
+        /// <summary>
+        /// Set the current state on Combat
+        /// </summary>
+        /// <param name="target"> Target to fight </param>
+        public void EnterCombatState(Transform target)
         {
-            if (!Attacking)
-                StartCoroutine(AttackRoutine(attackRate));
-
-            FaceTarget();
-            Stop();
+            Target = target;
+            Destination = target.position;
+            CurrentState = UnitStateMachine.Combat;
         }
+
+        private void CombatState()
+        {
+            float distance = GetDistanceFromDestination();
+
+            if (!Target)
+            {
+                CurrentState = distance >= 5f ? UnitStateMachine.GoToPoint : UnitStateMachine.Waiting;
+                return;
+            }
+
+            //Too Far to attack
+            if (distance > attackDistance)
+            {
+                _navMesh.isStopped = false;
+                _navMesh.SetDestination(Target.position);
+            }
+            //Close target => Attack
+            else
+            {
+                if (!Attacking)
+                    StartCoroutine(AttackRoutine(attackRate));
+
+                FaceTarget();
+                Stop();
+            }
+        }
+
+        public override void Attack()
+        {
+            if (!Target || !Target.TryGetComponent(out Entity enemy))
+                return;
+
+            enemy.DealDamages(damages);
+        }
+        #endregion
+
+        #region Select Methods
+        public virtual void Select()
+        {
+            SetSelector(true);
+        }
+
+        public virtual void Deselect()
+        {
+            SetSelector(false);
+        }
+
+        private void SetSelector(bool state)
+        {
+            if (!selector)
+                return;
+
+            selector.SetActive(state);
+        }
+        #endregion
+
+        #endregion
     }
-
-    public override void Attack()
-    {
-        if (!Target || !Target.TryGetComponent(out Entity enemy))
-            return;
-
-        enemy.DealDamages(damages);
-    }
-    #endregion
-
-    #region Select Methods
-    public virtual void Select()
-    {
-        SetSelector(true);
-    }
-
-    public virtual void Deselect()
-    {
-        SetSelector(false);
-    }
-
-    private void SetSelector(bool state)
-    {
-        if (!selector)
-            return;
-
-        selector.SetActive(state);
-    }
-    #endregion
-
-    #endregion
 }

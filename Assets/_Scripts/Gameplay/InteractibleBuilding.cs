@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scripts.Gameplay
+namespace Scripts.Gameplay.Building
 {
     public class InteractibleBuilding : MonoBehaviour
     {

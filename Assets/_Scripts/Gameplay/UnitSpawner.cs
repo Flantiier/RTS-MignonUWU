@@ -1,8 +1,8 @@
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
+using Scripts.Gameplay.Units;
 
-namespace Scripts.Gameplay
+namespace Scripts.Gameplay.Building
 {
     public class UnitSpawner : InteractibleBuilding
     {
