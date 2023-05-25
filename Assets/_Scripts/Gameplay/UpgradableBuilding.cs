@@ -6,8 +6,9 @@ namespace Scripts.Gameplay.Building
     {
         #region Variables
         [Header("Building Upgrades")]
-        [SerializeField] private UpgradeProperties[] buildingLevels;
+        [SerializeField] private BuildingUpgrade[] buildingLevels;
         public int CurrentLevel { get; protected set; }
+        public BuildingUpgrade[] Upgrades => buildingLevels;
         #endregion
 
         #region Methods
@@ -16,11 +17,11 @@ namespace Scripts.Gameplay.Building
         /// </summary>
         public void UpgradeBuilding()
         {
-            if (buildingLevels.Length <= 0 || CurrentLevel >= buildingLevels.Length)
+            if (CurrentLevel >= buildingLevels.Length)
                 return;
 
             //Not enough resources
-            if (HasResourcesToUpgrade(buildingLevels[CurrentLevel].RequiredResources))
+            if (!HasResourcesToUpgrade(buildingLevels[CurrentLevel].RequiredResources))
                 return;
 
             //Can upgrade building
@@ -36,14 +37,14 @@ namespace Scripts.Gameplay.Building
         /// <summary>
         /// Check if the player has the enough resources to upgrade
         /// </summary>
-        private bool HasResourcesToUpgrade(UpgradeDatas[] datas)
+        public bool HasResourcesToUpgrade(UpgradeDatas[] datas)
         {
             foreach (UpgradeDatas data in datas)
             {
                 if (data.Resource.amount >= data.Amount)
                     continue;
-                else
-                    return false;
+
+                return false;
             }
 
             return true;
@@ -53,7 +54,7 @@ namespace Scripts.Gameplay.Building
 
     #region Upgrade Properties
     [System.Serializable]
-    public struct UpgradeProperties
+    public struct BuildingUpgrade
     {
         [SerializeField] private UpgradeDatas[] resourcesCost;
         public UpgradeDatas[] RequiredResources => resourcesCost;

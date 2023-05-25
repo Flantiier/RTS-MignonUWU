@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b7e286b358c4d49aa8858b21597e21, type: 3}
   m_Name: Bois
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 594422999, guid: f1e9cfe65d1bc474599127271ab76d20, type: 3}
   amount: 500
   baseAmount: 500

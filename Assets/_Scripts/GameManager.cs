@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     [Header("Inventory")]
     [SerializeField] private Inventory inventory;
     [SerializeField] private Transform inventoryPanel;
-    [SerializeField] private ResourceDisplay slotPrefab;
+    [SerializeField] private ResourceSlot slotPrefab;
     #endregion
 
     #region Properties
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         foreach (Resource item in inventory.resources)
         {
             item.amount = item.baseAmount;
-            ResourceDisplay slot = Instantiate(slotPrefab, inventoryPanel);
+            ResourceSlot slot = Instantiate(slotPrefab, inventoryPanel);
             slot.resource = item;
             slot.InitializeSlot();
         }

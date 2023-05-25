@@ -14,11 +14,23 @@ namespace Scripts.Gameplay.Building
         [SerializeField] private FarmDatas[] properties  = new FarmDatas[1];
 
         private FarmDatas _currentDatas;
+        private FarmGUI _gui;
         private int _workersAmount = 0;
         private bool _farmRunning;
         #endregion
 
+        #region Properties
+        public Resource FarmResource => farmResource;
+        public Resource Resource => requiredResource;
+        public FarmDatas[] Properties => properties;
+        #endregion
+
         #region Builts_In
+        private void Awake()
+        {
+            _gui = GetComponentInChildren<FarmGUI>();
+        }
+
         private void Start()
         {
             SetBuildingProperties();
@@ -31,8 +43,9 @@ namespace Scripts.Gameplay.Building
             if (_farmRunning || _workersAmount < requiredWorkers)
                 return;
 
-            if (requiredResource.amount < _currentDatas.AmountToGenerate)
-                return;
+            if (requiredResource)
+                if (requiredResource.amount < _currentDatas.AmountToGenerate)
+                    return;
 
             Debug.Log("Started production.");
             StartCoroutine("GenerateResourceRoutine");
@@ -55,6 +68,9 @@ namespace Scripts.Gameplay.Building
         /// </summary>
         private void AddResource()
         {
+            if (requiredResource)
+                requiredResource.amount -= _currentDatas.AmountToGenerate;
+
             farmResource.amount += _currentDatas.GeneratedAmount;
         }
         #endregion
@@ -62,10 +78,8 @@ namespace Scripts.Gameplay.Building
         #region Inherited Methods
         protected override void SetBuildingProperties()
         {
-            if (CurrentLevel >= properties.Length)
-                return;
-
             _currentDatas = properties[CurrentLevel];
+            _gui.SetFarmGUI();
         }
         #endregion
     }
