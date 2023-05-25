@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8319981421792497338}
   - component: {fileID: 8319981421792497339}
   - component: {fileID: 8319981421792497336}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building - Fonderie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8319981421792497337}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 2.5
@@ -99,11 +99,59 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8319981421792497341}
     m_Modifications:
+    - target: {fileID: 59676514, guid: c09327e8f2161894e891c8e299263729, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1316500140, guid: c09327e8f2161894e891c8e299263729, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1959446429004405929, guid: c09327e8f2161894e891c8e299263729,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2116970027914757928, guid: c09327e8f2161894e891c8e299263729,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3029510761435521418, guid: c09327e8f2161894e891c8e299263729,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8319981421792497338}
+    - target: {fileID: 3814521509232455703, guid: c09327e8f2161894e891c8e299263729,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337585559893239173, guid: c09327e8f2161894e891c8e299263729,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865677628090015436, guid: c09327e8f2161894e891c8e299263729,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8167549537767032528, guid: c09327e8f2161894e891c8e299263729,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328885487889861989, guid: c09327e8f2161894e891c8e299263729,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328885487897928007, guid: c09327e8f2161894e891c8e299263729,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8328885487946185763, guid: c09327e8f2161894e891c8e299263729,
         type: 3}
       propertyPath: m_Pivot.x
@@ -214,6 +262,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Farm - WSC
       objectReference: {fileID: 0}
+    - target: {fileID: 8328885487946185764, guid: c09327e8f2161894e891c8e299263729,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328885488482325791, guid: c09327e8f2161894e891c8e299263729,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8328885489623250220, guid: c09327e8f2161894e891c8e299263729,
         type: 3}
       propertyPath: slotsContent
@@ -250,6 +308,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fonderie_UV
+      objectReference: {fileID: 0}
+    - target: {fileID: 190621233440711600, guid: 60841a50c7d60e74aa6f1faa267200bc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 190621233440711600, guid: 60841a50c7d60e74aa6f1faa267200bc,
         type: 3}
