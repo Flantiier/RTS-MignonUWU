@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 721209957a2fc8d4caf5c6ea53c82d57, type: 3}
+  m_Name: Building - Fonderie
+  m_EditorClassIdentifier: 
+  name: Ferme
+  visual: {fileID: 412439538, guid: f1e9cfe65d1bc474599127271ab76d20, type: 3}
+  description: Fond les minerais de fer pour produire des lingots.
+  resourcesToBuild:
+    resourcesCost:
+    - resource: {fileID: 11400000, guid: b3ef80ccf95e2e94b8470420c9633371, type: 2}
+      amount: 100

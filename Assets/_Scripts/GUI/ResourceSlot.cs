@@ -1,44 +1,31 @@
-using TMPro;
+﻿using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class ResourceSlot : MonoBehaviour
+namespace Scripts.Gameplay.Building
 {
-    #region Variables
-    public Resource resource;
-
-    protected TextMeshProUGUI _textMesh;
-    protected Image _image;
-    #endregion
-
-    #region Builts_In
-    protected virtual void Awake()
+    public class ResourceSlot : InventorySlot
     {
-        _image = GetComponent<Image>();
-        _textMesh = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        #region Variables/Properties
+        [SerializeField] private Color colorAbove = Color.green;
+        [SerializeField] private Color colorUnder = Color.red;
 
-        InitializeSlot();
+        public int MaxAmount { get; set; }
+        #endregion
+
+        #region Inherited Builts_In
+        protected override void Update()
+        {
+            if (!resource)
+                return;
+
+            _textMesh.text = ColoredAmount() + "/" + MaxAmount.ToString();
+        }
+
+        private string ColoredAmount()
+        {
+            string hex = resource.amount >= MaxAmount ? colorAbove.ToHexString() : colorUnder.ToHexString();
+            return $"<color=#{hex}>{resource.amount}</color>";
+        }
+        #endregion
     }
-
-    protected virtual void Update()
-    {
-        if (!resource)
-            return;
-
-        _textMesh.text = resource.amount.ToString();
-    }
-    #endregion
-
-    #region Methods
-    /// <summary>
-    /// Set slot icon
-    /// </summary>
-    public void InitializeSlot()
-    {
-        if (!resource || !resource.icon)
-            return;
-
-        _image.sprite = resource.icon;
-    }
-    #endregion
 }

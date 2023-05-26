@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 721209957a2fc8d4caf5c6ea53c82d57, type: 3}
+  m_Name: Building - Scierie
+  m_EditorClassIdentifier: 
+  name: Ferme
+  visual: {fileID: 412439538, guid: f1e9cfe65d1bc474599127271ab76d20, type: 3}
+  description: Creer des planches en fournissant du bois.
+  resourcesToBuild:
+    resourcesCost:
+    - resource: {fileID: 11400000, guid: 0eeadc001cf902a4f8dde38f1113b176, type: 2}
+      amount: 100

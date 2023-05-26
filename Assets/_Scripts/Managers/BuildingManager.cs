@@ -7,7 +7,6 @@ namespace Scripts.Managers
     public class BuildingManager : MonoBehaviour
     {
         #region Variables
-        [SerializeField] private string testBuilding;
         [Header("Building references")]
         [SerializeField] private BuildingTag[] buildings;
         [Header("Building positionning")]
@@ -20,6 +19,7 @@ namespace Scripts.Managers
         private Material _currentMat;
 
         public static BuildingManager Instance { get; private set; }
+        public bool IsDragging { get; private set; }
         #endregion
 
         #region Builts_In
@@ -39,13 +39,17 @@ namespace Scripts.Managers
         }
         #endregion
 
-        #region Methods
-        [ContextMenu("Test")]
-        public void TestBuilding()
+        #region Drag&Drop Methods
+        /// <summary>
+        /// Indicates if the player is dragging or not
+        /// </summary>
+        public void Dragging(bool value)
         {
-            InstantiateBuilding(testBuilding);
+            IsDragging = value;
         }
+        #endregion
 
+        #region Building Methods
         /// <summary>
         /// Instantiate a building by giving a name
         /// </summary>

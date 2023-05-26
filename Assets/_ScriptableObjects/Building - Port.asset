@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 721209957a2fc8d4caf5c6ea53c82d57, type: 3}
+  m_Name: Building - Port
+  m_EditorClassIdentifier: 
+  name: Ferme
+  visual: {fileID: 412439538, guid: f1e9cfe65d1bc474599127271ab76d20, type: 3}
+  description: Produit de la viande en continu.
+  resourcesToBuild:
+    resourcesCost:
+    - resource: {fileID: 11400000, guid: 9cf4aed10a3d3ef4892b24f97a9c5383, type: 2}
+      amount: 50
+    - resource: {fileID: 11400000, guid: 5a722e0c84e20dd4d9e336b43cd3cfd1, type: 2}
+      amount: 50

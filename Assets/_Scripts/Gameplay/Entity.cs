@@ -6,7 +6,9 @@ public class Entity : MonoBehaviour
     #region Variables
     [Header("Entity properties")]
     [SerializeField] private float health = 100f;
-    [SerializeField] private Slider healthSlider;
+    [SerializeField] protected Slider healthSlider;
+    [SerializeField] private float hideTime = 10f;
+    private float _lastHit;
     #endregion
 
     #region Properties
@@ -18,6 +20,11 @@ public class Entity : MonoBehaviour
     {
         InitHealthSlider();
         FullHealth();
+    }
+
+    private void LateUpdate()
+    {
+        HideSlider();
     }
     #endregion
 
@@ -50,6 +57,7 @@ public class Entity : MonoBehaviour
     {
         //Decrease health
         CurrentHealth -= damages;
+        _lastHit = Time.time;
         UpdateHealthSlider();
 
         //Health lower than 0
@@ -74,6 +82,8 @@ public class Entity : MonoBehaviour
             return;
 
         healthSlider.maxValue = health;
+        _lastHit = -hideTime;
+        healthSlider.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -85,6 +95,21 @@ public class Entity : MonoBehaviour
             return;
 
         healthSlider.value = CurrentHealth;
+    }
+
+    /// <summary>
+    /// Hide the slider after a certain amount of time
+    /// </summary>
+    private void HideSlider()
+    {
+        if (_lastHit + hideTime > Time.time && !healthSlider.gameObject.activeSelf)
+        {
+            healthSlider.gameObject.SetActive(true);
+        }
+        else if(_lastHit + hideTime < Time.time && healthSlider.gameObject.activeSelf)
+        {
+            healthSlider.gameObject.SetActive(false);
+        }
     }
     #endregion
 }

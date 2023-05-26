@@ -12,10 +12,12 @@ namespace Scripts.Gameplay.Units
         //References
         [Header("References")]
         [SerializeField] private GameObject selector;
+        [SerializeField] private Resource resource;
         #endregion
 
         #region Properties
         public UnitStateMachine CurrentState { get; protected set; }
+        public Resource Resource => resource;
         #endregion
 
         #region Builts_In

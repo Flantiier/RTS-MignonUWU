@@ -12,7 +12,7 @@ namespace Scripts.Gameplay.Building
         [SerializeField] private TextMeshProUGUI propertiesField;
         [SerializeField] private Color textColor = Color.green;
         [SerializeField] private Transform slotsContent;
-        [SerializeField] private UpgradeResourceSlot upgradeSlotPrefab;
+        [SerializeField] private ResourceSlot upgradeSlotPrefab;
         [SerializeField] private Button upgradeButton;
 
         private ResourceFarm _farm;
@@ -92,7 +92,7 @@ namespace Scripts.Gameplay.Building
             UpgradeDatas[] datas = _farm.Upgrades[_farm.CurrentLevel].RequiredResources;
             foreach (UpgradeDatas data in datas)
             {
-                UpgradeResourceSlot instance = Instantiate(upgradeSlotPrefab, slotsContent);
+                ResourceSlot instance = Instantiate(upgradeSlotPrefab, slotsContent);
                 instance.resource = data.Resource;
                 instance.MaxAmount = data.Amount;
                 instance.InitializeSlot();
