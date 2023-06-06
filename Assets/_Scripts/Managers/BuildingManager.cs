@@ -21,6 +21,7 @@ namespace Scripts.Managers
         [SerializeField] private Material invalidMaterial;
         public LayerMask collisionMask;
         [SerializeField] private LayerMask groundMask;
+        [SerializeField] private LayerMask resetClick;
         [SerializeField] private float checkRadius = 0.5f;
         [SerializeField] private float rotateRatio = 15f;
 

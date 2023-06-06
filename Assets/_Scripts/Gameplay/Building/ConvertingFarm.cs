@@ -27,6 +27,7 @@ namespace Scripts.Gameplay.Building
 
         protected override void Start()
         {
+            buildingCanvas.SetActive(false);
             SetBuildingProperties();
         }
 

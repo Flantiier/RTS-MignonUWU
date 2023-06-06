@@ -1,6 +1,7 @@
+using UnityEngine;
 using ScriptableObjects;
 using Scripts.Gameplay.Building;
-using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Game datas")]
     [SerializeField] private UnitProperties[] units;
+
+    [Header("EndGame")]
+    [SerializeField] private GameObject endGamePanel;
     #endregion
 
     #region Properties
@@ -25,6 +29,11 @@ public class GameManager : MonoBehaviour
         SingletonPattern();
         ResetUnitsProperties();
         InitializeInventory();
+    }
+
+    private void OnDestroy()
+    {
+        Time.timeScale = 1.0f;
     }
     #endregion
 
@@ -96,6 +105,14 @@ public class GameManager : MonoBehaviour
     {
         resource.amount -= amount;
         resource.amount = (int)Mathf.Clamp(resource.amount, 0, Mathf.Infinity);
+    }
+    #endregion
+
+    #region EndGame
+    public void EndGame()
+    {
+        endGamePanel.SetActive(true);
+        Time.timeScale = 0f;
     }
     #endregion
 }

@@ -30,6 +30,7 @@ namespace Scripts.Gameplay.Building
 
         protected virtual void Start()
         {
+            buildingCanvas.SetActive(false);
             SetBuildingProperties();
         }
 

@@ -33,9 +33,17 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: 65849294f7bfba248a8c13523f231f12, type: 3}
     sentence: Certains avant-postes ont ete capturer par ces mechantes vaches...
       Elimines celles aux alentours afin de les recuperer !
+  - image: {fileID: 21300000, guid: e51413696e11ac34c8eae5a3eea25973, type: 3}
+    sentence: Construit de nouveaux batiments en les glissant depuis le menu.
+  - image: {fileID: 21300000, guid: 6716806a380c6af4d9124d052730460b, type: 3}
+    sentence: Il est possible d'ameliorer certains batiments contre des ressources
+      en cliquand dessus. Tu trouveras aussi les informations de ton batiment.
+  - image: {fileID: 21300000, guid: 2e9697ce323728743b859e8317e820c9, type: 3}
+    sentence: Attention a ton inventaire ! Les ressources sont limitees, n'oublies
+      pas que chaque unite a un role bien precis.
   - image: {fileID: 21300000, guid: b79d01ef094b6ba478da504a218496cc, type: 3}
-    sentence: 'L''ennemi principal se trouve au bout de nos terres, il s''agit de
-      la Vampirovache originelle !
+    sentence: 'Sur ce , l''ennemi principal se trouve au bout de nos terres, il s''agit
+      de la Vampirovache originelle !
 
       Debarasse nous-en et nos villages retrouveront
       leurs tranquilite.

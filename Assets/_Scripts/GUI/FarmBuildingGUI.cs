@@ -9,13 +9,13 @@ namespace Scripts.Gameplay.Building
     {
         #region Variables
         [Header("Text properties")]
-        [SerializeField] private TextMeshProUGUI titleField;
-        [SerializeField] private TextMeshProUGUI propertiesField;
+        [SerializeField] protected TextMeshProUGUI titleField;
+        [SerializeField] protected TextMeshProUGUI propertiesField;
         [SerializeField] private Color textColor = Color.green;
         [Header("Resource properties")]
         [SerializeField] private Transform slotsContent;
         [SerializeField] private ResourceSlot resourceSlot;
-        [SerializeField] private Button upgradeButton;
+        [SerializeField] protected Button upgradeButton;
         [SerializeField] private GameObject upgradeText;
         [Header("Production properties")]
         [SerializeField] private Slider productSlider;
@@ -82,7 +82,7 @@ namespace Scripts.Gameplay.Building
         /// <summary>
         /// Set GUI texts
         /// </summary>
-        protected void SetTextFields(bool maxLevel)
+        protected virtual void SetTextFields(bool maxLevel)
         {
             int index = _farm.CurrentLevel;
             FarmDatas current = _farm.Properties[index];
@@ -90,6 +90,7 @@ namespace Scripts.Gameplay.Building
             //Set current properties
             string title = $"Niveau {index + 1}";
             string prodTime = $"Temps de production : {current.ProductTime}s";
+            string amount = $"Resources produites : {_farm.GeneratedAmount}";
 
             //Display upgrades properties
             if (!maxLevel)
@@ -101,7 +102,7 @@ namespace Scripts.Gameplay.Building
 
             //Set texts
             titleField.SetText(title);
-            propertiesField.text = prodTime;
+            propertiesField.text = prodTime + "\r\n" + amount;
         }
 
         /// <summary>

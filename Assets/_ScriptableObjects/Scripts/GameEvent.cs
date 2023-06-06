@@ -10,6 +10,7 @@ public class GameEvent : ScriptableObject
     /// <summary>
     /// Raising all the listeners responses
     /// </summary>
+    [ContextMenu("Raise")]
     public void Raise()
     {
         if (listeners.Count <= 0)

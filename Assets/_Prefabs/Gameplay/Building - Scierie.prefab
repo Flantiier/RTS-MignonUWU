@@ -97,11 +97,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8134385185950723887}
     m_Modifications:
-    - target: {fileID: 5780022192362337729, guid: 9cc84ca4d36a28f4cb01eea89a56f5a1,
-        type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5780022192362337730, guid: 9cc84ca4d36a28f4cb01eea89a56f5a1,
         type: 3}
       propertyPath: m_Pivot.x
@@ -211,6 +206,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WSC_ConvertingFarm
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780022192362337733, guid: 9cc84ca4d36a28f4cb01eea89a56f5a1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cc84ca4d36a28f4cb01eea89a56f5a1, type: 3}

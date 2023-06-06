@@ -36,6 +36,15 @@ namespace Scripts.Gameplay.Building
         }
         #endregion
 
+        #region Inherited Methods
+        protected override void SetTextFields(bool maxLevel)
+        {
+            base.SetTextFields(maxLevel);
+            string required = $"Ressources requises : {_convertingFarm.AmountToGenerate}";
+            propertiesField.text += "\r\n" + required;
+        }
+        #endregion
+
         #region Methods
         /// <summary>
         /// Initialize ui elements

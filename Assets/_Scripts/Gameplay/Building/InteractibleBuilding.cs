@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Scripts.Gameplay.Building
@@ -7,9 +8,11 @@ namespace Scripts.Gameplay.Building
     {
         #region Variables/Properties
         [Header("Building GUI")]
-        [SerializeField] private GameObject buildingCanvas;
+        [SerializeField] protected GameObject buildingCanvas;
         [SerializeField] private bool placedAtStart = false;
+
         public bool IsPlaced { get; set; } = false;
+        public static InteractibleBuilding lastBuilding;
         #endregion
 
         #region Builts_In
@@ -37,6 +40,15 @@ namespace Scripts.Gameplay.Building
                 return;
 
             buildingCanvas.SetActive(true);
+            DisableLastBuildingPanel();
+        }
+
+        private void DisableLastBuildingPanel()
+        {
+            if (lastBuilding && lastBuilding != this)
+                lastBuilding.DisableCanvas();
+
+            lastBuilding = this;
         }
         #endregion
     }

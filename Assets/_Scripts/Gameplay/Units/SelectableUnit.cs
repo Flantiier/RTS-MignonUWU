@@ -1,3 +1,4 @@
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,6 +12,7 @@ namespace Scripts.Gameplay.Units
 
         //References
         [Header("References")]
+        [SerializeField] private UnitProperties properties;
         [SerializeField] private GameObject selector;
         [SerializeField] private Resource resource;
         #endregion
