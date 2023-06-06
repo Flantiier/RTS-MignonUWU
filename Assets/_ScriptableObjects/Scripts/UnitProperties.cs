@@ -12,7 +12,7 @@ namespace ScriptableObjects
         [SerializeField] private string unitName;
         [SerializeField] private Sprite unitSprite;
         [SerializeField] private UnitDatas[] properties;
-        [SerializeField] private ResourceUpgrade[] resourcesToUpgrade;
+        [SerializeField] private UpgradeDatas[] resourcesToUpgrade;
         #endregion
 
         #region Properties
@@ -20,7 +20,9 @@ namespace ScriptableObjects
         public string Name => unitName;
         public Sprite Sprite => unitSprite;
         public UnitDatas[] Properties => properties;
+        public UpgradeDatas[] Upgrades => resourcesToUpgrade;
         public int CurrentLevel { get; private set; }
+        public int MaxLevel => resourcesToUpgrade.Length;
         #endregion
 
         #region Builts_In
@@ -41,12 +43,18 @@ namespace ScriptableObjects
             if (CurrentLevel >= resourcesToUpgrade.Length)
                 return;
 
-            if (!GameManager.Instance.HasEnoughResources(resourcesToUpgrade[CurrentLevel].RequiredResources))
+            UpgradeDatas data = resourcesToUpgrade[CurrentLevel];
+            if (data.Resource.amount < data.Amount)
                 return;
 
+            data.Resource.amount -= data.Amount;
+            data.Resource.amount = (int)Mathf.Clamp(data.Resource.amount, 0, Mathf.Infinity);
             CurrentLevel++;
-            foreach (UpgradeDatas resource in resourcesToUpgrade[CurrentLevel].RequiredResources)
-                resource.Resource.amount -= resource.Amount;
+        }
+
+        public void ResetDatas()
+        {
+            CurrentLevel = 0;
         }
         #endregion
     }

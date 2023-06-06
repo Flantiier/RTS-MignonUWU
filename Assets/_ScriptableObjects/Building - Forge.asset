@@ -19,6 +19,6 @@ MonoBehaviour:
   resourcesToBuild:
     resourcesCost:
     - resource: {fileID: 11400000, guid: 9cf4aed10a3d3ef4892b24f97a9c5383, type: 2}
-      amount: 150
+      amount: 100
     - resource: {fileID: 11400000, guid: 5a722e0c84e20dd4d9e336b43cd3cfd1, type: 2}
-      amount: 150
+      amount: 100

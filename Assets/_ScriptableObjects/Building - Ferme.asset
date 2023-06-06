@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721209957a2fc8d4caf5c6ea53c82d57, type: 3}
   m_Name: Building - Ferme
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3936575565850022306, guid: feebd2aa5b184ca48851b25f82f361d0, type: 3}
+  prefab: {fileID: 5016725016308034241, guid: feebd2aa5b184ca48851b25f82f361d0, type: 3}
   buildingName: Ferme
   sprite: {fileID: 412439538, guid: f1e9cfe65d1bc474599127271ab76d20, type: 3}
   description: Produit de la viande en continu.

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Scripts.Gameplay.Building
 {
@@ -27,6 +28,9 @@ namespace Scripts.Gameplay.Building
         public void OnMouseDown()
         {
             if (!IsPlaced)
+                return;
+
+            if (EventSystem.current.IsPointerOverGameObject())
                 return;
 
             if (!buildingCanvas || buildingCanvas.activeInHierarchy)

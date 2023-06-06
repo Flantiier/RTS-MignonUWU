@@ -39,11 +39,9 @@ namespace Scripts.Gameplay.Building
             if (_farmRoutine != null)
                 return;
 
-            if (convertedResource)
-                if (convertedResource.amount < amountToGenerate)
-                    return;
+            if (convertedResource.amount < amountToGenerate)
+                return;
 
-            Debug.Log("Started production.");
             StartCoroutine("GenerateResourceRoutine");
         }
 

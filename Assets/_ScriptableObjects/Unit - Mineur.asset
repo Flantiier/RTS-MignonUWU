@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ef7d715d1760e41921398b3ec360aa, type: 3}
   m_Name: Unit - Mineur
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 3671087860399432062, guid: 13e6afe003142f44598fb17d255a001c, type: 3}
   unitName: Mineur
   unitSprite: {fileID: 21300000, guid: 1964a1ab6503bcb4bb0e25c1225c5c5e, type: 3}
   properties:
@@ -20,9 +20,7 @@ MonoBehaviour:
   - damage: 30
   - damage: 35
   resourcesToUpgrade:
-  - resourcesCost:
-    - resource: {fileID: 11400000, guid: 5b494fc27458f634fa4dd21c32652384, type: 2}
-      amount: 250
-  - resourcesCost:
-    - resource: {fileID: 11400000, guid: 5b494fc27458f634fa4dd21c32652384, type: 2}
-      amount: 350
+  - resource: {fileID: 11400000, guid: 5b494fc27458f634fa4dd21c32652384, type: 2}
+    amount: 200
+  - resource: {fileID: 11400000, guid: 5b494fc27458f634fa4dd21c32652384, type: 2}
+    amount: 300

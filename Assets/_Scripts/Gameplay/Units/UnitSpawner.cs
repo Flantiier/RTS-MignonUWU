@@ -15,6 +15,7 @@ namespace Scripts.Gameplay.Building
         [SerializeField] private UpgradeDatas[] resources;
         [SerializeField] private Transform spawnPos;
         [SerializeField] private float spawnCooldown = 2f;
+        [SerializeField] private bool goRight = true;
 
         private bool _spawnWait = false;
         #endregion
@@ -38,8 +39,8 @@ namespace Scripts.Gameplay.Building
 
             int index = Array.FindIndex(units, x => x == unit);
             SelectableUnit instance = Instantiate(units[index].Prefab, spawnPos.position, Quaternion.LookRotation(spawnPos.position));
-            Vector3 direction = (transform.position - spawnPos.position).normalized * 1.5f;
-            instance.EnterMoveState(direction);
+            Vector3 direction = goRight ? spawnPos.right * 1.5f : spawnPos.right * -1.5f;
+            instance.EnterMoveState(spawnPos.transform.position + direction);
 
             StartCoroutine(SpawnRoutine());
         }

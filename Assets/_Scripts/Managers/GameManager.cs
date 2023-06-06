@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Inventory inventory;
     [SerializeField] private Transform inventoryPanel;
     [SerializeField] private InventorySlot slotPrefab;
+
+    [Header("Game datas")]
+    [SerializeField] private UnitProperties[] units;
     #endregion
 
     #region Properties
@@ -20,6 +23,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         SingletonPattern();
+        ResetUnitsProperties();
         InitializeInventory();
     }
     #endregion
@@ -35,6 +39,22 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
+    }
+    #endregion
+
+    #region GameData Methods
+    private void ResetUnitsProperties()
+    {
+        if (units.Length <= 0)
+            return;
+
+        foreach (UnitProperties unit in units)
+        {
+            if (!unit)
+                continue;
+
+            unit.ResetDatas();
+        }
     }
     #endregion
 

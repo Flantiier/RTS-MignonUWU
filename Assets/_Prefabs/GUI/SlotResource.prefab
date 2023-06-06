@@ -93,8 +93,8 @@ MonoBehaviour:
   resource: {fileID: 0}
   image: {fileID: 2719628931087879606}
   textField: {fileID: 2719628933054458433}
-  colorAbove: {r: 0.6933962, g: 1, b: 0.74149096, a: 1}
-  colorUnder: {r: 1, g: 0.506464, b: 0.4669811, a: 1}
+  colorAbove: {r: 0.10849059, g: 1, b: 0.24564599, a: 1}
+  colorUnder: {r: 0.83137256, g: 0.26666668, b: 0.22352941, a: 1}
 --- !u!1 &2719628933054458439
 GameObject:
   m_ObjectHideFlags: 0

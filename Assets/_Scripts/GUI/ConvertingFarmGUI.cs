@@ -12,6 +12,7 @@ namespace Scripts.Gameplay.Building
         [SerializeField] private ResourceSlot slot;
         [SerializeField] private Image productIcon;
         [SerializeField] private TextMeshProUGUI productText;
+        [SerializeField] private Button convertButton;
 
         private ConvertingFarm _convertingFarm;
         #endregion
@@ -26,6 +27,12 @@ namespace Scripts.Gameplay.Building
         private void Start()
         {
             InitializeGUI();
+        }
+
+        protected override void LateUpdate()
+        {
+            convertButton.interactable = _convertingFarm.ConvertedResource.amount >= _convertingFarm.AmountToGenerate;
+            base.LateUpdate();
         }
         #endregion
 

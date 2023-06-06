@@ -49,12 +49,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingCanvas: {fileID: 4738975203462556331}
-  buildingLevels: []
+  placedAtStart: 0
+  buildingLevels:
+  - resourcesCost:
+    - resource: {fileID: 11400000, guid: 0eeadc001cf902a4f8dde38f1113b176, type: 2}
+      amount: 100
   properties:
   - productTime: 10
-  farmResource: {fileID: 11400000, guid: 0eeadc001cf902a4f8dde38f1113b176, type: 2}
+  - productTime: 7
+  farmResource: {fileID: 11400000, guid: 9cf4aed10a3d3ef4892b24f97a9c5383, type: 2}
   generatedAmount: 5
-  convertedResource: {fileID: 11400000, guid: 9cf4aed10a3d3ef4892b24f97a9c5383, type: 2}
+  convertedResource: {fileID: 11400000, guid: 0eeadc001cf902a4f8dde38f1113b176, type: 2}
   amountToGenerate: 10
 --- !u!135 &8134385185950723881
 SphereCollider:
@@ -67,8 +72,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.3
-  m_Center: {x: 0, y: 0, z: -0.3}
+  m_Radius: 1.6
+  m_Center: {x: 0, y: 0, z: -0.5}
 --- !u!208 &8134385185950723882
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -79,11 +84,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 2.3, y: 0.5, z: 2.3}
+  m_Extents: {x: 1.6, y: 0.5, z: 1.6}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: -0.3}
+  m_Center: {x: 0, y: 0, z: -0.5}
   m_TimeToStationary: 0.5
 --- !u!1001 &1293372404833492846
 PrefabInstance:
@@ -246,7 +251,7 @@ PrefabInstance:
     - target: {fileID: 218527872801995596, guid: a6588b6e70c3a4d4d9bd8f82ad9fcdb7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 218527872801995596, guid: a6588b6e70c3a4d4d9bd8f82ad9fcdb7,
         type: 3}

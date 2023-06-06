@@ -11,6 +11,7 @@ namespace Scripts.Gameplay.Building
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI textField;
         [SerializeField] private ResourceSlot slot;
+        [SerializeField] private GameObject mask;
 
         public UnitProperties Unit { get; private set; }
         private UnitSpawner _spawner;
@@ -29,7 +30,9 @@ namespace Scripts.Gameplay.Building
             if (!Unit)
                 return;
 
-            _button.interactable = slot.resource.amount >= slot.MaxAmount;
+            bool hasResources = slot.resource.amount >= slot.MaxAmount;
+            _button.interactable = hasResources;
+            mask.SetActive(!hasResources);
         }
         #endregion
 

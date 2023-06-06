@@ -3,6 +3,7 @@ using UnityEngine;
 using Scripts.Gameplay.Building;
 using ScriptableObjects;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 
 namespace Scripts.Managers
 {
@@ -21,6 +22,7 @@ namespace Scripts.Managers
         public LayerMask collisionMask;
         [SerializeField] private LayerMask groundMask;
         [SerializeField] private float checkRadius = 0.5f;
+        [SerializeField] private float rotateRatio = 15f;
 
         private Buildinginfos _infos;
         private BuildingPreview _building;
@@ -94,6 +96,9 @@ namespace Scripts.Managers
             {
                 _building.transform.position = new Vector3(hit.point.x, 1f, hit.point.z);
             }
+
+            Quaternion target = Quaternion.Euler(0f, Input.GetAxis("Mouse ScrollWheel") * rotateRatio, 0f);
+            _building.transform.rotation *= target;
         }
 
         /// <summary>

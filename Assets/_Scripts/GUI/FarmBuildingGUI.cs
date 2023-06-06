@@ -30,6 +30,14 @@ namespace Scripts.Gameplay.Building
             upgradeButton.gameObject.SetActive(_farm.Upgrades.Length != 0);
         }
 
+        protected virtual void OnEnable()
+        {
+            if (_farm.CurrentLevel >= _farm.Upgrades.Length)
+                return;
+
+            upgradeButton.interactable = GameManager.Instance.HasEnoughResources(_farm.Upgrades[_farm.CurrentLevel].RequiredResources);
+        }
+
         protected virtual void LateUpdate()
         {
             productSlider.value = _farm.ProductProgress;

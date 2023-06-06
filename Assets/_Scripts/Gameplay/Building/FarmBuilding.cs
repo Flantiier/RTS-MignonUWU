@@ -48,7 +48,6 @@ namespace Scripts.Gameplay.Building
             if (_farmRoutine != null)
                 return;
 
-            Debug.Log("Started production.");
             _farmRoutine = StartCoroutine("GenerateResourceRoutine");
         }
 
@@ -82,8 +81,12 @@ namespace Scripts.Gameplay.Building
         public override void UpgradeBuilding()
         {
             if (_farmRoutine != null)
+            {
                 StopCoroutine(_farmRoutine);
+                _farmRoutine = null;
+            }
 
+            ProductProgress = 0f;
             base.UpgradeBuilding();
         }
 
