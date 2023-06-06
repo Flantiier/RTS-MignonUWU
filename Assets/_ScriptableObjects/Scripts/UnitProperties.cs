@@ -1,5 +1,6 @@
 using UnityEngine;
 using Scripts.Gameplay.Building;
+using Scripts.Gameplay.Units;
 
 namespace ScriptableObjects
 {
@@ -7,6 +8,7 @@ namespace ScriptableObjects
     public class UnitProperties : ScriptableObject
     {
         #region Variables
+        [SerializeField] private SelectableUnit prefab;
         [SerializeField] private string unitName;
         [SerializeField] private Sprite unitSprite;
         [SerializeField] private UnitDatas[] properties;
@@ -14,6 +16,7 @@ namespace ScriptableObjects
         #endregion
 
         #region Properties
+        public SelectableUnit Prefab => prefab;
         public string Name => unitName;
         public Sprite Sprite => unitSprite;
         public UnitDatas[] Properties => properties;

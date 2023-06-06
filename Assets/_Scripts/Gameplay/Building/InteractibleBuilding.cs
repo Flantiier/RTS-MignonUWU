@@ -1,14 +1,24 @@
-﻿using System.Runtime.CompilerServices;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Scripts.Gameplay.Building
 {
     public class InteractibleBuilding : MonoBehaviour
     {
+        #region Variables/Properties
         [Header("Building GUI")]
         [SerializeField] private GameObject buildingCanvas;
+        [SerializeField] private bool placedAtStart = false;
         public bool IsPlaced { get; set; } = false;
+        #endregion
 
+        #region Builts_In
+        private void Awake()
+        {
+            IsPlaced = placedAtStart;
+        }
+        #endregion
+
+        #region Methods
         public void DisableCanvas()
         {
             buildingCanvas.SetActive(false);
@@ -24,5 +34,6 @@ namespace Scripts.Gameplay.Building
 
             buildingCanvas.SetActive(true);
         }
+        #endregion
     }
 }

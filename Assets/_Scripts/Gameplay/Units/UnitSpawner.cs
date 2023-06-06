@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using Scripts.Gameplay.Units;
+using ScriptableObjects;
 
 namespace Scripts.Gameplay.Building
 {
@@ -8,7 +10,9 @@ namespace Scripts.Gameplay.Building
     {
         #region Variables
         [Header("Spawner properties")]
-        [SerializeField] private SelectableUnit[] units;
+        [SerializeField] private UnitProperties[] units;
+        [SerializeField] private SpawnUnitButton[] buttons;
+        [SerializeField] private UpgradeDatas[] resources;
         [SerializeField] private Transform spawnPos;
         [SerializeField] private float spawnCooldown = 2f;
 
@@ -16,25 +20,33 @@ namespace Scripts.Gameplay.Building
         #endregion
 
         #region Builts_In
-        private void Awake()
+        private void Start()
         {
-            IsPlaced = true;
+            for (int i = 0; i < units.Length; i++)
+                buttons[i].SetUnit(units[i], resources[i]);
         }
         #endregion
 
         #region Methods
-        public void SpawnUnit(int index)
+        /// <summary>
+        /// Spawn a new unit
+        /// </summary>
+        public void SpawnUnit(UnitProperties unit)
         {
             if (_spawnWait)
                 return;
 
-            SelectableUnit unit = Instantiate(units[index], spawnPos.position, Quaternion.LookRotation(spawnPos.position));
+            int index = Array.FindIndex(units, x => x == unit);
+            SelectableUnit instance = Instantiate(units[index].Prefab, spawnPos.position, Quaternion.LookRotation(spawnPos.position));
             Vector3 direction = (transform.position - spawnPos.position).normalized * 1.5f;
-            unit.EnterMoveState(direction);
+            instance.EnterMoveState(direction);
 
             StartCoroutine(SpawnRoutine());
         }
 
+        /// <summary>
+        /// Spawn wait
+        /// </summary>
         private IEnumerator SpawnRoutine()
         {
             _spawnWait = true;
