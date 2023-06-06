@@ -10,12 +10,12 @@ namespace ScriptableObjects
         [SerializeField] private string buildingName;
         [SerializeField] private Sprite sprite;
         [SerializeField, TextArea(2, 2)] private string description;
-        [SerializeField] private BuildingUpgrade resourcesToBuild;
+        [SerializeField] private ResourceUpgrade resourcesToBuild;
 
         public InteractibleBuilding Prefab => prefab;
         public string Name => buildingName;
         public string Description => description;
         public Sprite Sprite => sprite;
-        public BuildingUpgrade Resource => resourcesToBuild;
+        public ResourceUpgrade Resource => resourcesToBuild;
     }
 }

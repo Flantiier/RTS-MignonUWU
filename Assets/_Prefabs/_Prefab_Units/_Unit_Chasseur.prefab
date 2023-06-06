@@ -42,6 +42,22 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 6964495095301115565}
+    - target: {fileID: 5332990379514011301, guid: 54ca8001e59a0d5478908c40c4e1b27b,
+        type: 3}
+      propertyPath: attackRate
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5332990379514011301, guid: 54ca8001e59a0d5478908c40c4e1b27b,
+        type: 3}
+      propertyPath: properties
+      value: 
+      objectReference: {fileID: 11400000, guid: 4cc5ca19351b95e4b9e5a337aa22f61c,
+        type: 2}
+    - target: {fileID: 5332990379514011301, guid: 54ca8001e59a0d5478908c40c4e1b27b,
+        type: 3}
+      propertyPath: attackDistance
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5666178085450681307, guid: 54ca8001e59a0d5478908c40c4e1b27b,
         type: 3}
       propertyPath: m_Layer

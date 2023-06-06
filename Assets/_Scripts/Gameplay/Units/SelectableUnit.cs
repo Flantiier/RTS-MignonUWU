@@ -126,12 +126,29 @@ namespace Scripts.Gameplay.Units
             }
         }
 
+        /// <summary>
+        /// Start to attack the current target
+        /// </summary>
         public override void Attack()
         {
             if (!Target || !Target.TryGetComponent(out Entity enemy))
                 return;
 
-            enemy.DealDamages(damages);
+            enemy.DealDamages(GetDamages());
+        }
+
+        /// <summary>
+        /// Get attack damages value
+        /// </summary>
+        public float GetDamages()
+        {
+            if (!resource)
+                return properties.GetDamagesValue();
+
+            if (Target.TryGetComponent(out DestructibleResource target) && target.Resource == resource)
+                return properties.GetDamagesValue();
+
+            return damages;
         }
         #endregion
 

@@ -15,6 +15,13 @@ namespace Scripts.Gameplay.Building
         private bool _spawnWait = false;
         #endregion
 
+        #region Builts_In
+        private void Awake()
+        {
+            IsPlaced = true;
+        }
+        #endregion
+
         #region Methods
         public void SpawnUnit(int index)
         {

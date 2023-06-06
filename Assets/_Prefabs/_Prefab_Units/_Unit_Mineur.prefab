@@ -44,9 +44,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5332990379514011301, guid: 54ca8001e59a0d5478908c40c4e1b27b,
         type: 3}
+      propertyPath: damages
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5332990379514011301, guid: 54ca8001e59a0d5478908c40c4e1b27b,
+        type: 3}
       propertyPath: resource
       value: 
       objectReference: {fileID: 11400000, guid: b3ef80ccf95e2e94b8470420c9633371,
+        type: 2}
+    - target: {fileID: 5332990379514011301, guid: 54ca8001e59a0d5478908c40c4e1b27b,
+        type: 3}
+      propertyPath: attackRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5332990379514011301, guid: 54ca8001e59a0d5478908c40c4e1b27b,
+        type: 3}
+      propertyPath: properties
+      value: 
+      objectReference: {fileID: 11400000, guid: 00598e93e4e722d4387af2138bc986f1,
         type: 2}
     - target: {fileID: 5666178085450681307, guid: 54ca8001e59a0d5478908c40c4e1b27b,
         type: 3}

@@ -1,3 +1,4 @@
+using ScriptableObjects;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,6 +15,7 @@ namespace Scripts.Gameplay.Units
         [SerializeField] protected float moveSpeed = 3f;
 
         [Header("Combat")]
+        [SerializeField] protected UnitProperties properties;
         [SerializeField] protected float damages = 25f;
         [SerializeField] protected float attackDistance = 1f;
         [SerializeField] protected float attackRate = 3f;

@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 6477622504802948219, guid: 855ff395027a72041b4661bc87550658,
         type: 3}
       propertyPath: m_Name
-      value: Building - Port
+      value: Building - PortPont
       objectReference: {fileID: 0}
     - target: {fileID: 6477622504802948223, guid: 855ff395027a72041b4661bc87550658,
         type: 3}
@@ -20,17 +20,17 @@ PrefabInstance:
     - target: {fileID: 6477622504802948223, guid: 855ff395027a72041b4661bc87550658,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.94
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6477622504802948223, guid: 855ff395027a72041b4661bc87550658,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6477622504802948223, guid: 855ff395027a72041b4661bc87550658,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.63
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6477622504802948223, guid: 855ff395027a72041b4661bc87550658,
         type: 3}

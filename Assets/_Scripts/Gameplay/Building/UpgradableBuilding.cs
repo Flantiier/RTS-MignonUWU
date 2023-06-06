@@ -6,16 +6,19 @@ namespace Scripts.Gameplay.Building
     {
         #region Variables
         [Header("Building Upgrades")]
-        [SerializeField] private BuildingUpgrade[] buildingLevels;
+        [SerializeField] private ResourceUpgrade[] buildingLevels;
+        [Tooltip("This array size should match the amount of upgrades.")]
+        [SerializeField] protected FarmDatas[] properties = new FarmDatas[1];
+
         public int CurrentLevel { get; protected set; }
-        public BuildingUpgrade[] Upgrades => buildingLevels;
+        public ResourceUpgrade[] Upgrades => buildingLevels;
         #endregion
 
         #region Methods
         /// <summary>
         /// Upgrade building level
         /// </summary>
-        public void UpgradeBuilding()
+        public virtual void UpgradeBuilding()
         {
             if (CurrentLevel >= buildingLevels.Length)
                 return;
@@ -38,7 +41,7 @@ namespace Scripts.Gameplay.Building
 
     #region Upgrade Properties
     [System.Serializable]
-    public struct BuildingUpgrade
+    public struct ResourceUpgrade
     {
         [SerializeField] private UpgradeDatas[] resourcesCost;
         public UpgradeDatas[] RequiredResources => resourcesCost;
@@ -56,5 +59,15 @@ namespace Scripts.Gameplay.Building
     }
     #endregion
 
+    #region FarmDatas class
+    [System.Serializable]
+    public class FarmDatas
+    {
+        [Tooltip("Production speed of the farm.")]
+        [SerializeField] private float productTime = 3f;
+
+        public float ProductTime => productTime;
+    }
+    #endregion
 }
 
