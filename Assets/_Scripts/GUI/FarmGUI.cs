@@ -12,7 +12,7 @@ namespace Scripts.Gameplay.Building
         [SerializeField] private TextMeshProUGUI propertiesField;
         [SerializeField] private Color textColor = Color.green;
         [SerializeField] private Transform slotsContent;
-        [SerializeField] private ResourceSlot upgradeSlotPrefab;
+        [SerializeField] private ResourceSlot resourceSlot;
         [SerializeField] private Button upgradeButton;
 
         private ResourceFarm _farm;
@@ -29,7 +29,7 @@ namespace Scripts.Gameplay.Building
             if (!upgradeButton.gameObject.activeSelf)
                 return;
 
-            upgradeButton.interactable = _farm.HasResourcesToUpgrade(_farm.Upgrades[_farm.CurrentLevel].RequiredResources);
+            upgradeButton.interactable = GameManager.Instance.HasEnoughResources(_farm.Upgrades[_farm.CurrentLevel].RequiredResources);
         }
         #endregion
 
@@ -80,19 +80,22 @@ namespace Scripts.Gameplay.Building
         /// </summary>
         private void SetSlots(bool maxLevel)
         {
+            //Disable panel when level max is reached
             if (maxLevel)
             {
                 slotsContent.parent.gameObject.SetActive(false);
                 return;
             }
 
+            //Destroy previous slots
             foreach (Transform child in slotsContent)
                 Destroy(child.gameObject);
 
+            //Create new slots
             UpgradeDatas[] datas = _farm.Upgrades[_farm.CurrentLevel].RequiredResources;
             foreach (UpgradeDatas data in datas)
             {
-                ResourceSlot instance = Instantiate(upgradeSlotPrefab, slotsContent);
+                ResourceSlot instance = Instantiate(resourceSlot, slotsContent);
                 instance.resource = data.Resource;
                 instance.MaxAmount = data.Amount;
                 instance.InitializeSlot();

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721209957a2fc8d4caf5c6ea53c82d57, type: 3}
   m_Name: Building - Scierie
   m_EditorClassIdentifier: 
-  name: Ferme
-  visual: {fileID: 412439538, guid: f1e9cfe65d1bc474599127271ab76d20, type: 3}
+  prefab: {fileID: 8134385185950723880, guid: 4d9b3f09fca5d884e82040f1c125ad22, type: 3}
+  buildingName: Scierie
+  sprite: {fileID: 252646351, guid: f1e9cfe65d1bc474599127271ab76d20, type: 3}
   description: Creer des planches en fournissant du bois.
   resourcesToBuild:
     resourcesCost:

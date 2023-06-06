@@ -1149,7 +1149,7 @@ MonoBehaviour:
   propertiesField: {fileID: 8116533941309634491}
   textColor: {r: 0.4764151, g: 1, b: 0.4764151, a: 1}
   slotsContent: {fileID: 59676515}
-  upgradeSlotPrefab: {fileID: 8512594397118398696, guid: da935dfc78bceb54fb56798d0f855efc,
+  resourceSlot: {fileID: 8512594397118398696, guid: da935dfc78bceb54fb56798d0f855efc,
     type: 3}
   upgradeButton: {fileID: 3029510761435521418}
 --- !u!1 &8328885488482325791

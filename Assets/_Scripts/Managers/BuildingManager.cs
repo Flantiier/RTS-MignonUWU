@@ -1,6 +1,8 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using Scripts.Gameplay.Building;
+using ScriptableObjects;
+using UnityEngine.EventSystems;
 
 namespace Scripts.Managers
 {
@@ -8,16 +10,24 @@ namespace Scripts.Managers
     {
         #region Variables
         [Header("Building references")]
-        [SerializeField] private BuildingTag[] buildings;
+        [SerializeField] private Buildinginfos[] buildings;
+
+        [Header("Building GUI")]
+        [SerializeField] private Transform buildingContent;
+        [SerializeField] private BuildingDropper slotPrefab;
+
         [Header("Building positionning")]
         [SerializeField] private Material invalidMaterial;
         public LayerMask collisionMask;
         [SerializeField] private LayerMask groundMask;
         [SerializeField] private float checkRadius = 0.5f;
 
+        private Buildinginfos _infos;
         private BuildingPreview _building;
         private Material _currentMat;
+        #endregion
 
+        #region Properties
         public static BuildingManager Instance { get; private set; }
         public bool IsDragging { get; private set; }
         #endregion
@@ -26,6 +36,7 @@ namespace Scripts.Managers
         private void Awake()
         {
             SingletonPattern();
+            InstantiateBuildingSlots();
         }
 
         private void Update()
@@ -33,7 +44,6 @@ namespace Scripts.Managers
             if (!_building)
                 return;
 
-            Debug.Log(CanPlaceBuilding());
             UpdateBuildingPosition();
             SetBuildingMaterial();
         }
@@ -46,6 +56,9 @@ namespace Scripts.Managers
         public void Dragging(bool value)
         {
             IsDragging = value;
+            CanvasGroup canvasGroup = buildingContent.parent.GetComponent<CanvasGroup>();
+            canvasGroup.alpha = value ? 0 : 1;
+            canvasGroup.blocksRaycasts = !value;
         }
         #endregion
 
@@ -53,17 +66,18 @@ namespace Scripts.Managers
         /// <summary>
         /// Instantiate a building by giving a name
         /// </summary>
-        public void InstantiateBuilding(string name)
+        public void InstantiateBuilding(Buildinginfos infos)
         {
-            foreach (BuildingTag building in buildings)
+            foreach (Buildinginfos building in buildings)
             {
-                if (building.Name != name)
+                if (infos != building)
                     continue;
 
                 InteractibleBuilding instance = Instantiate(building.Prefab);
                 instance.DisableCanvas();
                 instance.enabled = false;
 
+                _infos = infos;
                 _building = instance.AddComponent<BuildingPreview>();
                 _currentMat = _building.GetComponentInChildren<MeshRenderer>().sharedMaterial;
             }
@@ -85,19 +99,28 @@ namespace Scripts.Managers
         /// <summary>
         /// Check if the building can be placed
         /// </summary>
-        private void PlaceBuilding()
+        public void PlaceBuilding()
         {
-            if (_building.NbCollisions > 0 || !CheckBuildingBounds())
+            if (!CanPlaceBuilding())
+            {
+                Destroy(_building.gameObject);
+                _infos = null;
                 return;
+            }
 
-            //Place building$
+            //Place building
             _currentMat = null;
             InteractibleBuilding instance = _building.GetComponent<InteractibleBuilding>();
             instance.enabled = true;
             instance.IsPlaced = true;
 
+            //Use resources
+            foreach (UpgradeDatas resource in _infos.Resource.RequiredResources)
+                GameManager.Instance.UseResource(resource.Resource, resource.Amount);
+
             Destroy(_building);
             _building = null;
+            _infos = null;
         }
 
         /// <summary>
@@ -147,6 +170,20 @@ namespace Scripts.Managers
         }
         #endregion
 
+        #region GUI Methods
+        /// <summary>
+        /// Instantiates all building slots
+        /// </summary>
+        private void InstantiateBuildingSlots()
+        {
+            foreach (Buildinginfos info in buildings)
+            {
+                BuildingDropper instance = Instantiate(slotPrefab, buildingContent);
+                instance.UpdateInfos(info);
+            }
+        }
+        #endregion
+
         #region Design Patterns
         private void SingletonPattern()
         {
@@ -156,15 +193,5 @@ namespace Scripts.Managers
                 Instance = this;
         }
         #endregion
-    }
-
-    [System.Serializable]
-    public struct BuildingTag
-    {
-        [SerializeField] private string name;
-        [SerializeField] private InteractibleBuilding buildingPrefab;
-
-        public string Name => name;
-        public InteractibleBuilding Prefab => buildingPrefab;
     }
 }

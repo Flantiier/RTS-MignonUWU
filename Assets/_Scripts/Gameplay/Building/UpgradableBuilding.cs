@@ -21,7 +21,7 @@ namespace Scripts.Gameplay.Building
                 return;
 
             //Not enough resources
-            if (!HasResourcesToUpgrade(buildingLevels[CurrentLevel].RequiredResources))
+            if (!GameManager.Instance.HasEnoughResources(buildingLevels[CurrentLevel].RequiredResources))
                 return;
 
             //Can upgrade building
@@ -33,22 +33,6 @@ namespace Scripts.Gameplay.Building
         /// Set building properties, called after an update
         /// </summary>
         protected virtual void SetBuildingProperties() { }
-
-        /// <summary>
-        /// Check if the player has the enough resources to upgrade
-        /// </summary>
-        public bool HasResourcesToUpgrade(UpgradeDatas[] datas)
-        {
-            foreach (UpgradeDatas data in datas)
-            {
-                if (data.Resource.amount >= data.Amount)
-                    continue;
-
-                return false;
-            }
-
-            return true;
-        }
         #endregion
     }
 

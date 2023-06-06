@@ -6,17 +6,13 @@ public class InventorySlot : MonoBehaviour
 {
     #region Variables
     public Resource resource;
-
-    protected TextMeshProUGUI _textMesh;
-    protected Image _image;
+    [SerializeField] protected Image image;
+    [SerializeField] protected TextMeshProUGUI textField;
     #endregion
 
     #region Builts_In
     protected virtual void Awake()
     {
-        _image = GetComponent<Image>();
-        _textMesh = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-
         InitializeSlot();
     }
 
@@ -25,7 +21,7 @@ public class InventorySlot : MonoBehaviour
         if (!resource)
             return;
 
-        _textMesh.text = resource.amount.ToString();
+        textField.text = resource.amount.ToString();
     }
     #endregion
 
@@ -38,7 +34,7 @@ public class InventorySlot : MonoBehaviour
         if (!resource || !resource.icon)
             return;
 
-        _image.sprite = resource.icon;
+        image.sprite = resource.icon;
     }
     #endregion
 }

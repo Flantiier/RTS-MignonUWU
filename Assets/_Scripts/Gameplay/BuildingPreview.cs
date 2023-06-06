@@ -1,4 +1,5 @@
 using Scripts.Managers;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,6 +7,7 @@ public class BuildingPreview : MonoBehaviour
 {
     #region Variables
     private NavMeshObstacle _navMeshObs;
+    private Rigidbody _rb;
     public SphereCollider Collider { get; private set; }
     public int NbCollisions { get; private set; } = 0;
     #endregion
@@ -17,11 +19,17 @@ public class BuildingPreview : MonoBehaviour
         _navMeshObs = GetComponent<NavMeshObstacle>();
         Collider.isTrigger = true;
         _navMeshObs.enabled = false;
+
+        //Add a rigidBody
+        _rb = gameObject.AddComponent<Rigidbody>();
+        _rb.isKinematic = true;
+        _rb.useGravity = false;
     }
 
     private void OnDestroy()
     {
-        _navMeshObs.enabled = true;        
+        _navMeshObs.enabled = true;
+        Destroy(_rb);
     }
 
     private void OnTriggerEnter(Collider other)

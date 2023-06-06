@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721209957a2fc8d4caf5c6ea53c82d57, type: 3}
   m_Name: Building - Fonderie
   m_EditorClassIdentifier: 
-  name: Ferme
-  visual: {fileID: 412439538, guid: f1e9cfe65d1bc474599127271ab76d20, type: 3}
+  prefab: {fileID: 8319981421792497338, guid: c472269661eaaca4ba82f432575db07d, type: 3}
+  buildingName: Fonderie
+  sprite: {fileID: 1616121356, guid: f1e9cfe65d1bc474599127271ab76d20, type: 3}
   description: Fond les minerais de fer pour produire des lingots.
   resourcesToBuild:
     resourcesCost:

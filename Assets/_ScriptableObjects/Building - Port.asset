@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721209957a2fc8d4caf5c6ea53c82d57, type: 3}
   m_Name: Building - Port
   m_EditorClassIdentifier: 
-  name: Ferme
-  visual: {fileID: 412439538, guid: f1e9cfe65d1bc474599127271ab76d20, type: 3}
+  prefab: {fileID: 7168800314247898188, guid: fa4dfdc95592af64eac9a79076e19c05, type: 3}
+  buildingName: Port
+  sprite: {fileID: 412439538, guid: f1e9cfe65d1bc474599127271ab76d20, type: 3}
   description: Produit de la viande en continu.
   resourcesToBuild:
     resourcesCost:

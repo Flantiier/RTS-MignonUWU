@@ -260,6 +260,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8328885489623250220, guid: c09327e8f2161894e891c8e299263729,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328885489623250220, guid: c09327e8f2161894e891c8e299263729,
+        type: 3}
       propertyPath: slotsContent
       value: 
       objectReference: {fileID: 2721479935252606697}

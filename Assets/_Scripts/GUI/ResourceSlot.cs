@@ -18,7 +18,7 @@ namespace Scripts.Gameplay.Building
             if (!resource)
                 return;
 
-            _textMesh.text = ColoredAmount() + "/" + MaxAmount.ToString();
+            textField.text = ColoredAmount() + "/" + MaxAmount.ToString();
         }
 
         private string ColoredAmount()

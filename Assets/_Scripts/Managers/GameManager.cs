@@ -1,4 +1,5 @@
 using ScriptableObjects;
+using Scripts.Gameplay.Building;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -50,6 +51,31 @@ public class GameManager : MonoBehaviour
             slot.resource = item;
             slot.InitializeSlot();
         }
+    }
+
+    /// <summary>
+    /// Check if the player has the enough resources to upgrade
+    /// </summary>
+    public bool HasEnoughResources(UpgradeDatas[] datas)
+    {
+        foreach (UpgradeDatas data in datas)
+        {
+            if (data.Resource.amount >= data.Amount)
+                continue;
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// Remove resources from the inventory
+    /// </summary>
+    public void UseResource(Resource resource, int amount)
+    {
+        resource.amount -= amount;
+        resource.amount = (int)Mathf.Clamp(resource.amount, 0, Mathf.Infinity);
     }
     #endregion
 }
